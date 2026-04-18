@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getInducteesByYear, getInducteeYears, renderPortableText } from '../../../sanity/queries';
+import { urlFor } from '../../../sanity/client';
+
+export async function getStaticPaths() {
+  const years = await getInducteeYears();
+  return years.map((y) => ({ params: { year: String(y) } }));
+}
+
+const year = Number(Astro.params.year);
+const inductees = await getInducteesByYear(year);
+
+if (!inductees.length) {
+  return new Response(null, { status: 404 });
+}
+
+// Display order within each category group is already applied by the query; we only need
+// to partition by category for the rendered sections.
+const CATEGORY_ORDER = ['fiddler', 'accompanist', 'builder', 'other'] as const;
+const CATEGORY_LABEL: Record<string, string> = {
+  fiddler: 'Fiddler',
+  accompanist: 'Accompanist',
+  builder: 'Builder / Promoter',
+  other: 'Other',
+};
+
+const groups = CATEGORY_ORDER
+  .map((cat) => ({
+    category: cat,
+    label: CATEGORY_LABEL[cat],
+    members: inductees.filter((i) => i.category === cat),
+  }))
+  .filter((g) => g.members.length > 0);
+---
+
+<BaseLayout
+  title={`${year} Wall of Fame Inductees — Manitoba Fiddle Association`}
+  description={`The ${year} Manitoba Fiddle Association Wall of Fame inductees, across fiddler, accompanist, and builder/promoter categories.`}
+>
+  <article class="mx-auto max-w-5xl px-6 py-12 md:py-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
+      <a href="/en/wall-of-fame" class="no-underline hover:text-brand-800">Wall of Fame</a>
+    </p>
+    <h1 class="mt-2 font-serif text-4xl md:text-5xl font-semibold text-ink text-balance leading-tight">
+      {year} inductees
+    </h1>
+
+    {groups.map(({ category, label, members }) => (
+      <section class="mt-12">
+        <h2 class="font-serif text-2xl font-semibold text-brand-800 border-b border-neutral-200 pb-2">
+          {label}
+        </h2>
+        <ul class="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3 items-start">
+          {members.map((i) => (
+            <li class="flex flex-col rounded-lg border border-neutral-200 bg-white overflow-hidden">
+              {i.photo?.asset?.url ? (
+                <button
+                  type="button"
+                  class="aspect-[4/5] overflow-hidden bg-neutral-100 block w-full cursor-zoom-in p-0 border-0"
+                  data-lightbox
+                  data-full={urlFor(i.photo).width(1600).auto('format').url()}
+                  data-alt={i.photo.alt ?? i.name}
+                  aria-label={`View larger photo of ${i.name}`}
+                >
+                  <img
+                    src={urlFor(i.photo).width(600).height(750).fit('crop').auto('format').url()}
+                    alt={i.photo.alt ?? i.name}
+                    loading="lazy"
+                    class="w-full h-full object-cover"
+                  />
+                </button>
+              ) : (
+                <div class="aspect-[4/5] flex items-center justify-center bg-brand-50 text-brand-700/40">
+                  <span class="font-serif text-4xl">{i.name.split(/\s+/).map((n) => n[0]).filter((c) => /\p{L}/u.test(c)).slice(0, 2).join('')}</span>
+                </div>
+              )}
+              <div class="flex flex-col flex-1 p-4">
+                <h3 class="font-serif text-lg font-semibold text-ink leading-tight">
+                  {i.name}
+                  {i.posthumous && (
+                    <span class="ml-1 text-ink/55 text-sm font-sans font-normal">(posthumous)</span>
+                  )}
+                </h3>
+                {i.bioPdf?.asset?.url && (
+                  <a
+                    href={i.bioPdf.asset.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-2 text-sm font-medium text-brand-700 no-underline hover:text-brand-800"
+                  >
+                    ↓ Bio (PDF)
+                  </a>
+                )}
+                {i.bioBody && (
+                  <div class="mt-2" data-bio-section>
+                    <div
+                      class="bio-clamp prose prose-sm prose-neutral max-w-none"
+                      data-bio
+                      set:html={renderPortableText(i.bioBody)}
+                    />
+                    <button
+                      type="button"
+                      class="bio-toggle hidden mt-2 text-sm font-medium text-brand-700 hover:text-brand-800"
+                      data-bio-toggle
+                      aria-expanded="false"
+                    >
+                      Read more
+                    </button>
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <div class="mt-16 border-t border-neutral-200 pt-6">
+      <a href="/en/wall-of-fame" class="text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+        ← All years
+      </a>
+    </div>
+  </article>
+
+  <dialog
+    data-lightbox-dialog
+    class="lightbox-dialog bg-transparent p-0 m-0 w-screen h-screen max-w-none max-h-none"
+    aria-label="Photo viewer"
+  >
+    <button
+      type="button"
+      data-lightbox-close
+      class="absolute top-4 right-4 z-10 h-10 w-10 rounded-full bg-white/90 text-ink text-xl leading-none flex items-center justify-center shadow hover:bg-white"
+      aria-label="Close"
+    >
+      ×
+    </button>
+    <div class="flex items-center justify-center w-full h-full p-4 md:p-8" data-lightbox-backdrop>
+      <img
+        data-lightbox-image
+        alt=""
+        class="max-w-full max-h-full object-contain shadow-2xl"
+      />
+    </div>
+  </dialog>
+</BaseLayout>
+
+<style>
+  .bio-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    overflow: hidden;
+  }
+  .bio-clamp.is-expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+  }
+  .lightbox-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.82);
+  }
+</style>
+
+<script>
+  const sections = document.querySelectorAll<HTMLElement>('[data-bio-section]');
+
+  const refresh = (body: HTMLElement, btn: HTMLButtonElement) => {
+    if (body.classList.contains('is-expanded')) return;
+    const overflows = body.scrollHeight - body.clientHeight > 2;
+    btn.classList.toggle('hidden', !overflows);
+  };
+
+  const init = () => {
+    sections.forEach((section) => {
+      const body = section.querySelector<HTMLElement>('[data-bio]');
+      const btn = section.querySelector<HTMLButtonElement>('[data-bio-toggle]');
+      if (!body || !btn) return;
+
+      refresh(body, btn);
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(() => refresh(body, btn)).observe(body);
+      }
+
+      btn.addEventListener('click', () => {
+        const expanded = body.classList.toggle('is-expanded');
+        btn.setAttribute('aria-expanded', String(expanded));
+        btn.textContent = expanded ? 'Show less' : 'Read more';
+      });
+    });
+  };
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(init);
+  } else {
+    init();
+  }
+
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox-dialog]');
+  const dialogImg = dialog?.querySelector<HTMLImageElement>('[data-lightbox-image]');
+  const closeBtn = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-close]');
+  const backdrop = dialog?.querySelector<HTMLElement>('[data-lightbox-backdrop]');
+
+  if (dialog && dialogImg) {
+    document.querySelectorAll<HTMLButtonElement>('[data-lightbox]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const full = btn.dataset.full;
+        const alt = btn.dataset.alt ?? '';
+        if (!full) return;
+        dialogImg.src = full;
+        dialogImg.alt = alt;
+        dialog.showModal();
+      });
+    });
+
+    closeBtn?.addEventListener('click', () => dialog.close());
+
+    // Click outside image (on the backdrop flex container) to close.
+    backdrop?.addEventListener('click', (e) => {
+      if (e.target === backdrop) dialog.close();
+    });
+
+    // Clear src on close so the image doesn't flash when reopening a different photo.
+    dialog.addEventListener('close', () => {
+      dialogImg.removeAttribute('src');
+    });
+  }
+</script>

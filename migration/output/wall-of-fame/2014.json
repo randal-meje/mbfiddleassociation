@@ -1,0 +1,108 @@
+{
+  "year": 2014,
+  "title": "2014 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    {
+      "name": "Henri Hince",
+      "category": "Fiddler",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4306606.jpg",
+      "captionRaw": "Henri Hince (Fiddler category)",
+      "source": "slideshow"
+    },
+    {
+      "name": "Irene Sharp",
+      "category": "Builder/Promoter",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/8573999.jpg",
+      "captionRaw": "Irene Sharp (Builder category)",
+      "source": "slideshow"
+    },
+    {
+      "name": "Jellicoe LaFrenière",
+      "category": "Fiddler",
+      "posthumous": true,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/2339107.jpg",
+      "captionRaw": "Jellicoe LaFrenière (Fiddler category - posthumously). Accepting on his behalf - daughters Lynn Leslie and Gwen LaFrenière",
+      "source": "slideshow"
+    },
+    {
+      "name": "Pearl Carnahan",
+      "category": "Accompanist",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4659736.jpg",
+      "captionRaw": "Pearl Carnahan (Accompanist category)",
+      "source": "slideshow"
+    }
+  ],
+  "photos": [
+    {
+      "caption": "Henri Hince (Fiddler category)",
+      "width": 400,
+      "height": 600,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/4306606.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4306606.jpg"
+    },
+    {
+      "caption": "Henri Hince performing",
+      "width": 400,
+      "height": 266,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/3178908.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/3178908.jpg"
+    },
+    {
+      "caption": "Irene Sharp (Builder category)",
+      "width": 400,
+      "height": 600,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/8573999.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/8573999.jpg"
+    },
+    {
+      "caption": "Irene Sharp performing",
+      "width": 400,
+      "height": 266,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2009108.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/2009108.jpg"
+    },
+    {
+      "caption": "Jellicoe LaFrenière (Fiddler category - posthumously). Accepting on his behalf - daughters Lynn Leslie and Gwen LaFrenière",
+      "width": 400,
+      "height": 600,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2339107.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/2339107.jpg"
+    },
+    {
+      "caption": "Musical tribute to Jellicoe LaFrenière by Walter Kuzyk and Jean Snider",
+      "width": 400,
+      "height": 266,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/1468627.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/1468627.jpg"
+    },
+    {
+      "caption": "Pearl Carnahan (Accompanist category)",
+      "width": 400,
+      "height": 600,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/4659736.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4659736.jpg"
+    },
+    {
+      "caption": "Pearl Carnahan performing",
+      "width": 400,
+      "height": 266,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/7637593.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/7637593.jpg"
+    }
+  ],
+  "format": "slideshow",
+  "sourceUrl": "https://www.mbfiddleassociation.org/2014-inductees.html",
+  "lastmod": "2025-02-05T02:49:42+00:00"
+}

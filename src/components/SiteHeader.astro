@@ -1,0 +1,64 @@
+---
+// Single-locale site for launch. The /en/ URL prefix is retained so a future French
+// edition can slot in without URL changes (see astro.config.mjs i18n block). When FR
+// returns, this file grows back a locale-aware version of the nav and an EN/FR toggle.
+const nav = [
+  { path: '/', label: 'Home' },
+  { path: '/news', label: 'News' },
+  { path: '/events', label: 'Events' },
+  { path: '/wall-of-fame', label: 'Wall of Fame' },
+  { path: '/about', label: 'About' },
+  { path: '/join', label: 'Join' },
+  { path: '/contact', label: 'Contact' },
+].map(({ path, label }) => ({ href: `/en${path === '/' ? '/' : path}`, label }));
+
+const current = Astro.url.pathname;
+---
+
+<header class="border-b border-neutral-200/80 bg-cream">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
+    <a href="/en/" class="flex items-baseline gap-2 no-underline">
+      <span class="font-serif text-xl font-semibold tracking-tight text-ink">Manitoba Fiddle Association</span>
+    </a>
+
+    <nav aria-label="Primary" class="hidden md:block">
+      <ul class="flex items-center gap-1 text-sm">
+        {nav.map(({ href, label }) => {
+          const active = current === href || (href !== '/en/' && current.startsWith(href));
+          return (
+            <li>
+              <a
+                href={href}
+                class:list={[
+                  'rounded px-3 py-2 no-underline transition',
+                  active
+                    ? 'text-brand-700 bg-brand-50'
+                    : 'text-ink hover:text-brand-700 hover:bg-neutral-100',
+                ]}
+                aria-current={active ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <!-- Mobile-only nav disclosure. Using <details> keeps it zero-JS and accessible. -->
+    <details class="md:hidden relative">
+      <summary class="list-none cursor-pointer rounded border border-neutral-300 px-3 py-2 text-sm text-ink">
+        Menu
+      </summary>
+      <nav aria-label="Primary (mobile)" class="absolute right-0 mt-2 w-56 rounded-md border border-neutral-200 bg-cream shadow-lg z-10">
+        <ul class="py-2 text-sm">
+          {nav.map(({ href, label }) => (
+            <li>
+              <a href={href} class="block px-4 py-2 no-underline text-ink hover:bg-brand-50 hover:text-brand-700">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

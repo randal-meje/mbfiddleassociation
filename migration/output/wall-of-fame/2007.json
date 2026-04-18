@@ -1,0 +1,14 @@
+{
+  "year": 2007,
+  "title": "2007 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    { "name": "Mel Bruce", "category": "Fiddler", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Ella Cook", "category": "Fiddler", "posthumous": true, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Brian/Dorothy Granger", "category": "Builder", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" }
+  ],
+  "photos": [],
+  "format": "history-page",
+  "sourceUrl": "https://www.mbfiddleassociation.org/inductee-history.html",
+  "lastmod": null
+}

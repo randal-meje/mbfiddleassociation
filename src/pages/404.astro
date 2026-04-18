@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found — Manitoba Fiddle Association" description="The page you're looking for isn't here.">
+  <section class="mx-auto max-w-xl px-6 py-20 md:py-28 text-center">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">404</p>
+    <h1 class="mt-3 font-serif text-4xl md:text-5xl font-semibold text-ink leading-tight">
+      That page has wandered off.
+    </h1>
+    <p class="mt-4 text-lg text-ink/75 leading-relaxed">
+      The link may be old or the page may have moved. Try one of these:
+    </p>
+    <ul class="mt-6 flex flex-wrap justify-center gap-2 text-sm">
+      <li><a href="/en/" class="rounded-md border border-neutral-300 px-4 py-2 no-underline text-ink hover:border-brand-700 hover:text-brand-700">Home</a></li>
+      <li><a href="/en/news" class="rounded-md border border-neutral-300 px-4 py-2 no-underline text-ink hover:border-brand-700 hover:text-brand-700">News</a></li>
+      <li><a href="/en/events" class="rounded-md border border-neutral-300 px-4 py-2 no-underline text-ink hover:border-brand-700 hover:text-brand-700">Events</a></li>
+      <li><a href="/en/wall-of-fame" class="rounded-md border border-neutral-300 px-4 py-2 no-underline text-ink hover:border-brand-700 hover:text-brand-700">Wall of Fame</a></li>
+      <li><a href="/en/contact" class="rounded-md border border-neutral-300 px-4 py-2 no-underline text-ink hover:border-brand-700 hover:text-brand-700">Contact</a></li>
+    </ul>
+  </section>
+</BaseLayout>

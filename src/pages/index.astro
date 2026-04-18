@@ -1,0 +1,21 @@
+---
+// Single-locale launch. Bare root redirects straight to /en/ — no locale detection
+// needed until FR is reintroduced. The /en/ prefix is kept so URLs don't change when
+// that happens (see astro.config.mjs i18n block).
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manitoba Fiddle Association</title>
+    <meta http-equiv="refresh" content="0; url=/en/" />
+    <link rel="canonical" href="/en/" />
+    <script>location.replace('/en/');</script>
+  </head>
+  <body>
+    <p style="font-family: sans-serif; padding: 2rem; color: #666;">
+      Redirecting to <a href="/en/">the Manitoba Fiddle Association site</a>…
+    </p>
+  </body>
+</html>

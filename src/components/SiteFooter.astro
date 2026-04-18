@@ -1,0 +1,58 @@
+---
+// Single-locale site for launch. See SiteHeader.astro for the plan when FR returns.
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    heading: 'Explore',
+    links: [
+      { href: '/en/news', label: 'News' },
+      { href: '/en/events', label: 'Events' },
+      { href: '/en/wall-of-fame', label: 'Wall of Fame' },
+    ],
+  },
+  {
+    heading: 'About',
+    links: [
+      { href: '/en/about', label: 'About the MFA' },
+      { href: '/en/join', label: 'Join' },
+      { href: '/en/contact', label: 'Contact' },
+    ],
+  },
+];
+---
+
+<!-- Using white for link text on brand-900 brings contrast well above WCAG AA.
+     brand-200/brand-300 is reserved for secondary UI (column headings, paragraph body,
+     copyright line) where a softer tone reads as hierarchy, not low-contrast. -->
+<footer class="bg-brand-900 text-white mt-16">
+  <div class="mx-auto max-w-6xl px-6 py-12 grid gap-10 md:grid-cols-[2fr_1fr_1fr]">
+    <div>
+      <p class="font-serif text-2xl font-semibold text-white">Manitoba Fiddle Association</p>
+      <p class="mt-3 text-sm leading-relaxed text-brand-200 max-w-sm">
+        Encouraging, developing, promoting, and preserving fiddle music as part
+        of our culture and heritage.
+      </p>
+    </div>
+
+    {columns.map(({ heading, links }) => (
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-brand-300">{heading}</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          {links.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-white no-underline hover:text-brand-200">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <div class="border-t border-brand-800">
+    <div class="mx-auto max-w-6xl px-6 py-5 text-xs text-brand-300 flex flex-col md:flex-row justify-between gap-2">
+      <span>&copy; {year} Manitoba Fiddle Association Inc.</span>
+      <span>Incorporated 1999 · Winnipeg, Manitoba</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,23 @@
+{
+  "slug": "2nd-annual-world-fiddle-day",
+  "title": "2nd Annual World Fiddle Day",
+  "publishedAt": "2014-05-19",
+  "publishedAtRaw": "5/19/2014",
+  "excerpt": "World Fiddle Day is the one day in the year when all those who play that wide fiddle/violin family of instruments can celebrate. It is celebrated annually on the Saturday closest to May 19th, the...",
+  "coverImage": "/assets/uploads/1/9/6/9/19690537/2782327.jpg",
+  "bodyHtml": "\n\t\t\t\t<div><div class=\"wsite-image wsite-image-border-thin \" style=\"padding-top:0;padding-bottom:5px;margin-left:0;margin-right:0;text-align:center\"> <a href=\"/assets/uploads/1/9/6/9/19690537/2782327_orig.jpg\" rel=\"lightbox\" onclick=\"if (!lightboxLoaded) return false\"> <img src=\"/assets/uploads/1/9/6/9/19690537/2782327.jpg\" alt=\"World Fiddle Day\" style=\"width:auto;max-width:100%\"> </a> <div style=\"display:block;font-size:90%\"></div> </div></div>  <div class=\"paragraph\" style=\"text-align:left;\">World Fiddle Day is the one day in the year when all those who play that wide fiddle/violin family of instruments can celebrate. It is celebrated annually on the Saturday closest to May 19th, the anniversary of Antonio Stradivari's passing.<br><span></span><br><span></span>This year's event was held on Saturday, May 17, 2014 at&nbsp;Coronation Park in Winnipeg, Manitoba.&nbsp;We had many fiddlers, guitar players, a base, several dancers, and a whole&nbsp;bunch of listeners out enjoying a beautiful sunny afternoon.<br><span></span><br><span></span>    Thank you Patti Lamoureux for making this day a success.<br><span></span></div>  <div><div style=\"height:10px;overflow:hidden\"></div> <div id=\"811886358413992156-slideshow\"></div> <script type=\"text/javascript\"> (function(jQuery) { function init() { wSlideshow.render({elementID:\"811886358413992156\",nav:\"thumbnails\",navLocation:\"right\",captionLocation:\"bottom\",transition:\"slide\",autoplay:\"1\",speed:\"5\",aspectRatio:\"16:9\",showControls:\"true\",randomStart:\"false\",images:[{\"url\":\"1\\/9\\/6\\/9\\/19690537\\/418047.jpg\",\"width\":400,\"height\":266,\"fullHeight\":400,\"fullWidth\":600},{\"url\":\"1\\/9\\/6\\/9\\/19690537\\/7081990.jpg\",\"width\":400,\"height\":266,\"fullHeight\":400,\"fullWidth\":600},{\"url\":\"1\\/9\\/6\\/9\\/19690537\\/7842964.jpg\",\"width\":400,\"height\":266,\"fullHeight\":400,\"fullWidth\":600},{\"url\":\"1\\/9\\/6\\/9\\/19690537\\/4646575.jpg\",\"width\":400,\"height\":266,\"fullHeight\":400,\"fullWidth\":600},{\"url\":\"1\\/9\\/6\\/9\\/19690537\\/6838209.jpg\",\"width\":400,\"height\":266,\"fullHeight\":400,\"fullWidth\":600}]}) } jQuery ? jQuery(init) : document.observe('dom:loaded', init) })(window._W && _W.jQuery) </script>  <div style=\"height:20px;overflow:hidden\"></div></div>\n\n\t\t",
+  "sourceUrl": "https://www.mbfiddleassociation.org/news/2nd-annual-world-fiddle-day",
+  "assets": [
+    {
+      "kind": "image",
+      "originalUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2782327.jpg?729",
+      "localPath": "assets/uploads/1/9/6/9/19690537/2782327.jpg"
+    },
+    {
+      "kind": "file",
+      "originalUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2782327_orig.jpg?729",
+      "localPath": "assets/uploads/1/9/6/9/19690537/2782327_orig.jpg"
+    }
+  ],
+  "lastmod": "2014-05-19T21:22:06-07:00"
+}

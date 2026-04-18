@@ -1,0 +1,15 @@
+{
+  "year": 2006,
+  "title": "2006 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    { "name": "Mel Bedard", "category": "Fiddler", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Reg Bouvette", "category": "Fiddler", "posthumous": true, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Tommy Buick", "category": "Fiddler", "posthumous": true, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Winston Simpson", "category": "Builder", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" }
+  ],
+  "photos": [],
+  "format": "history-page",
+  "sourceUrl": "https://www.mbfiddleassociation.org/inductee-history.html",
+  "lastmod": null
+}

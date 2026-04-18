@@ -1,0 +1,143 @@
+{
+  "year": 2016,
+  "title": "2016 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    {
+      "name": "Denis Encontre",
+      "category": "Fiddler",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/1214510.jpg",
+      "captionRaw": "Denis Encontre - fiddler",
+      "source": "slideshow"
+    },
+    {
+      "name": "Allison Granger",
+      "category": "Fiddler",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/469070.jpg",
+      "captionRaw": "Allison Granger - fiddler",
+      "source": "slideshow"
+    },
+    {
+      "name": "\"Fiddling Red\" Francis Sabiston",
+      "category": "Fiddler",
+      "posthumous": true,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9964885.jpg",
+      "captionRaw": "&quot;Fiddling Red&quot; Francis Sabiston - fiddler (posthumously)",
+      "source": "slideshow"
+    },
+    {
+      "name": "Charlie Sage",
+      "category": "Builder/Promoter",
+      "posthumous": true,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/7372281.jpg",
+      "captionRaw": "Charlie Sage - builder (posthumously)",
+      "source": "slideshow"
+    }
+  ],
+  "photos": [
+    {
+      "caption": "Denis Encontre - fiddler",
+      "width": 400,
+      "height": 499,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/1214510.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/1214510.jpg"
+    },
+    {
+      "caption": "The Denis Encontre family",
+      "width": 400,
+      "height": 282,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/1141186.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/1141186.jpg"
+    },
+    {
+      "caption": "Denis Encontre performing",
+      "width": 400,
+      "height": 348,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5292282.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/5292282.jpg"
+    },
+    {
+      "caption": "Denis Encontre musical tribute",
+      "width": 400,
+      "height": 256,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2298506.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/2298506.jpg"
+    },
+    {
+      "caption": "Allison Granger - fiddler",
+      "width": 400,
+      "height": 533,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/469070.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/469070.jpg"
+    },
+    {
+      "caption": "The Allison Granger family",
+      "width": 400,
+      "height": 312,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/1529450.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/1529450.jpg"
+    },
+    {
+      "caption": "Allison Granger performing",
+      "width": 400,
+      "height": 353,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/3697075.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/3697075.jpg"
+    },
+    {
+      "caption": "Allison Granger musical tribute",
+      "width": 400,
+      "height": 274,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/717128.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/717128.jpg"
+    },
+    {
+      "caption": "Allison Granger with father Brian Granger",
+      "width": 400,
+      "height": 407,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5446865.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/5446865.jpg"
+    },
+    {
+      "caption": "&quot;Fiddling Red&quot; Francis Sabiston - fiddler (posthumously)",
+      "width": 400,
+      "height": 289,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/9964885.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9964885.jpg"
+    },
+    {
+      "caption": "&quot;Fiddling Red&quot; Sabiston musical tribute",
+      "width": 400,
+      "height": 262,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5581220.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/5581220.jpg"
+    },
+    {
+      "caption": "Charlie Sage - builder (posthumously)\n",
+      "width": 400,
+      "height": 309,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/7372281.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/7372281.jpg"
+    },
+    {
+      "caption": "Charlie Sage musical tribute",
+      "width": 400,
+      "height": 225,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/9182050.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9182050.jpg"
+    }
+  ],
+  "format": "slideshow",
+  "sourceUrl": "https://www.mbfiddleassociation.org/2016-inductees.html",
+  "lastmod": "2025-02-05T02:49:42+00:00"
+}

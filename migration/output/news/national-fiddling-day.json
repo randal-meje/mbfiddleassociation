@@ -1,0 +1,23 @@
+{
+  "slug": "national-fiddling-day",
+  "title": "National Fiddling Day",
+  "publishedAt": "2015-05-24",
+  "publishedAtRaw": "5/24/2015",
+  "excerpt": "The Inaugural National Fiddling day was held at the St. Norbert Farmers Market on Saturday, May 16th. The Federal Government passed a Bill to designate the third Saturday in May as National Fiddling...",
+  "coverImage": "/assets/uploads/1/9/6/9/19690537/5432480.jpg",
+  "bodyHtml": "\n\t\t\t\t<span class=\"imgPusher\" style=\"float:left;height:0px\"></span><span style=\"display: table;z-index:10;width:255px;position:relative;float:left;max-width:100%;;clear:left;margin-top:0px;*margin-top:0px\"><a href=\"/assets/uploads/1/9/6/9/19690537/5432480_orig.jpg\" rel=\"lightbox\" onclick=\"if (!lightboxLoaded) return false\"><img src=\"/assets/uploads/1/9/6/9/19690537/5432480.jpg\" style=\"margin-top: 5px; margin-bottom: 10px; margin-left: 0px; margin-right: 10px; border-width:1px;padding:3px; max-width:100%\" alt=\"Ribbon Cutting\" class=\"galleryImageBorder wsite-image\"></a><span style=\"display: table-caption; caption-side: bottom; font-size: 90%; margin-top: -10px; margin-bottom: 10px; text-align: center;\" class=\"wsite-caption\"></span></span> <div class=\"paragraph\" style=\"display:block;\">The Inaugural National Fiddling day was held at the St. Norbert Farmers Market on Saturday, May 16th. The Federal Government passed a Bill to designate the third Saturday in May as National Fiddling Day, paying tribute to the country's fiddling heritage. It is held in conjunction with World Fiddle Day.<br><br>The Southglen Fiddlers started their performance by playing \"Canada's Fiddling Day Two Step\" aka \"Fiddle Bill\". It was composed by Kelli Trottier in honour of this day. Dignitaries were on hand to open the Farmers Market season with the \"Cutting of the Fiddle String\".<br><br>The Norman Chief Memorial Dancers entertained the crowd with their band. Crowds clapped their hands and tapped their toes to the music of many of Manitoba's fiddlers in the following Jam Session.</div> <hr style=\"width:100%;clear:both;visibility:hidden;\">  <div><div style=\"height:0px;overflow:hidden\"></div> <div id=\"695259396495724314-slideshow\"></div>\n<script type=\"text/javascript\">\n(function(jQuery) {\nfunction init() { wSlideshow.render({elementID:\"695259396495724314\",nav:\"thumbnails\",navLocation:\"bottom\",captionLocation:\"bottom\",transition:\"slide\",autoplay:\"1\",speed:\"5\",aspectRatio:\"16:9\",showControls:\"true\",randomStart:\"false\",images:[{\"url\":\"1/9/6/9/19690537/4039050.jpg\",\"width\":\"400\",\"height\":\"266\"},{\"url\":\"1/9/6/9/19690537/1116456.jpg\",\"width\":\"400\",\"height\":\"219\"},{\"url\":\"1/9/6/9/19690537/8644891.jpg\",\"width\":\"400\",\"height\":\"600\"},{\"url\":\"1/9/6/9/19690537/7258002.jpg\",\"width\":\"400\",\"height\":\"266\"},{\"url\":\"1/9/6/9/19690537/5193245.jpg\",\"width\":\"400\",\"height\":\"266\"},{\"url\":\"1/9/6/9/19690537/4079310.jpg\",\"width\":\"400\",\"height\":\"600\"},{\"url\":\"1/9/6/9/19690537/931293.jpg\",\"width\":\"400\",\"height\":\"266\"},{\"url\":\"1/9/6/9/19690537/1449856.jpg\",\"width\":\"400\",\"height\":\"266\"},{\"url\":\"1/9/6/9/19690537/9024273.jpg\",\"width\":\"400\",\"height\":\"190\"},{\"url\":\"1/9/6/9/19690537/6732713.jpg\",\"width\":\"400\",\"height\":\"246\"},{\"url\":\"1/9/6/9/19690537/1900642.jpg\",\"width\":\"400\",\"height\":\"266\"}]}) }\njQuery ? jQuery(init) : document.observe('dom:loaded', init)\n})(window._W && _W.jQuery)\n</script>\n <div style=\"height:20px;overflow:hidden\"></div></div>\n\n\t\t",
+  "sourceUrl": "https://www.mbfiddleassociation.org/news/national-fiddling-day",
+  "assets": [
+    {
+      "kind": "image",
+      "originalUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5432480.jpg?237",
+      "localPath": "assets/uploads/1/9/6/9/19690537/5432480.jpg"
+    },
+    {
+      "kind": "file",
+      "originalUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5432480_orig.jpg?237",
+      "localPath": "assets/uploads/1/9/6/9/19690537/5432480_orig.jpg"
+    }
+  ],
+  "lastmod": "2015-05-24T19:01:29-07:00"
+}

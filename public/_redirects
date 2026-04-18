@@ -1,0 +1,34 @@
+# Netlify _redirects — applied at the edge before static files are served.
+# Maps the old Weebly URL space to the new site so external inbound links
+# (search results, emails, bookmarks) keep working after DNS cutover.
+#
+# Format: <from>  <to>  <status>
+# 301 is a permanent redirect; search engines transfer rank to the new URL.
+
+# --- Static pages
+/index.html              /en/                                 301
+/about.html              /en/about                            301
+/join.html               /en/join                             301
+/contact.html            /en/contact                          301
+/news.html               /en/news                             301
+/events.html             /en/events                           301
+
+# --- Wall of Fame
+/wall.html               /en/wall-of-fame                     301
+/inductee-history.html   /en/wall-of-fame                     301
+/:year-inductees.html    /en/wall-of-fame/:year               301
+
+# --- Individual news posts — slug path is the same under /en/news
+/news/*                  /en/news/:splat                      301
+
+# --- Legacy Weebly blog archive and per-month archive URLs
+# Both collapse to the news index; the new site has year-filter chips instead.
+/news/archives/*         /en/news                             301
+/2/post/*                /en/news                             301
+/2/feed                  /en/news                             301
+
+# --- Image and PDF uploads scraped from the Weebly tree stay at the same path
+# so references in imported news bodies keep working. _redirects can't re-serve
+# files from /assets/uploads to /uploads without making them available there,
+# so this is a catch-all 301 into the new asset path.
+/uploads/*               /assets/uploads/:splat               301

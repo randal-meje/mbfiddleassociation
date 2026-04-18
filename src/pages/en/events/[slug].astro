@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getEvent, getAllEvents, renderPortableText, EVENT_CATEGORY_LABEL } from '../../../sanity/queries';
+import { urlFor } from '../../../sanity/client';
+
+export async function getStaticPaths() {
+  const events = await getAllEvents();
+  return events.map((e) => ({ params: { slug: e.slug.current } }));
+}
+
+const { slug } = Astro.params;
+const event = await getEvent(slug as string);
+
+if (!event) {
+  return new Response(null, { status: 404 });
+}
+
+const bodyHtml = renderPortableText(event.body);
+
+const fmtDate = (iso: string, allDay: boolean | undefined) => {
+  const d = new Date(iso);
+  const dOpts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' };
+  const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+  return allDay
+    ? d.toLocaleDateString('en-CA', dOpts)
+    : `${d.toLocaleDateString('en-CA', dOpts)} · ${d.toLocaleTimeString('en-CA', tOpts)}`;
+};
+
+const linkLabel = event.externalLinkLabel?.trim() || 'More info';
+
+// schema.org Event JSON-LD. Emitted to make the event eligible for Google's Event
+// rich result (date, location, link displayed in SERP). Shape follows Google's required
+// + recommended fields; we skip "offers" because ticket pricing isn't modelled.
+const siteOrigin = Astro.site?.origin ?? 'https://www.mbfiddleassociation.org';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: event.title,
+  startDate: event.startDate,
+  ...(event.endDate ? { endDate: event.endDate } : {}),
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  ...(event.location
+    ? {
+        location: {
+          '@type': 'Place',
+          name: event.location,
+          ...(event.locationUrl ? { url: event.locationUrl } : {}),
+        },
+      }
+    : {}),
+  ...(event.coverImage?.asset?.url ? { image: [event.coverImage.asset.url] } : {}),
+  organizer: {
+    '@type': 'Organization',
+    name: 'Manitoba Fiddle Association',
+    url: siteOrigin,
+  },
+  url: `${siteOrigin}/en/events/${event.slug.current}`,
+};
+---
+
+<BaseLayout
+  title={`${event.title} — Manitoba Fiddle Association`}
+  description={event.location}
+  ogType="event"
+  ogImage={event.coverImage?.asset?.url}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <article class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
+      <a href="/en/events" class="no-underline hover:text-brand-800">Events</a>
+      <span class="text-ink/40"> · </span>
+      <span class="text-ink/60">
+        {(event.categories ?? []).map((c) => EVENT_CATEGORY_LABEL[c]).join(' · ')}
+      </span>
+    </p>
+    <h1 class="mt-3 font-serif text-4xl md:text-5xl font-semibold text-ink text-balance leading-tight">
+      {event.title}
+    </h1>
+
+    <!-- Facts panel: date, location, external link, add-to-calendar. Sits right under the
+         title so a mobile visitor gets the operational info without scrolling. -->
+    <dl class="not-prose mt-6 grid gap-2 text-sm">
+      <div class="flex gap-3">
+        <dt class="w-24 shrink-0 text-ink/60 uppercase tracking-wider text-xs font-semibold self-center">When</dt>
+        <dd>
+          <time datetime={event.startDate}>{fmtDate(event.startDate, event.allDay)}</time>
+          {event.endDate && <> – <time datetime={event.endDate}>{fmtDate(event.endDate, event.allDay)}</time></>}
+        </dd>
+      </div>
+      {event.location && (
+        <div class="flex gap-3">
+          <dt class="w-24 shrink-0 text-ink/60 uppercase tracking-wider text-xs font-semibold self-center">Where</dt>
+          <dd>
+            {event.locationUrl ? (
+              <a
+                href={event.locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="underline text-brand-700 hover:text-brand-800"
+              >{event.location}</a>
+            ) : (
+              <span>{event.location}</span>
+            )}
+          </dd>
+        </div>
+      )}
+    </dl>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      {event.externalLink && (
+        <a
+          href={event.externalLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded-md bg-brand-700 px-5 py-2.5 text-sm font-medium text-white no-underline hover:bg-brand-800"
+        >
+          {linkLabel}
+        </a>
+      )}
+      <a
+        href={`/en/events/${event.slug.current}/event.ics`}
+        class="inline-flex items-center rounded-md border border-brand-700 px-5 py-2.5 text-sm font-medium text-brand-700 no-underline hover:bg-brand-50"
+      >
+        ↓ Add to calendar (.ics)
+      </a>
+    </div>
+
+    {/* Cover image + body together so the float wraps. On narrow screens the image
+        stacks above at full width; at md+ it floats left at ~1/3 width and the body
+        paragraphs flow around it. clear-both closes the float before the footer link. */}
+    {event.coverImage?.asset?.url && (
+      <img
+        src={urlFor(event.coverImage).width(700).auto('format').url()}
+        alt={event.coverImage.alt ?? ''}
+        class="mt-8 mb-4 w-full rounded-lg border border-neutral-200 bg-neutral-100 md:float-left md:mt-8 md:mr-6 md:mb-3 md:w-1/3"
+      />
+    )}
+
+    {bodyHtml && (
+      <div class="mt-8 prose prose-neutral max-w-none" set:html={bodyHtml} />
+    )}
+
+    <div class="clear-both mt-12 border-t border-neutral-200 pt-6">
+      <a href="/en/events" class="text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+        ← All events
+      </a>
+    </div>
+  </article>
+</BaseLayout>

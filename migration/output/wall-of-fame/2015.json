@@ -1,0 +1,136 @@
+{
+  "year": 2015,
+  "title": "2015 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    {
+      "name": "Alvin Harold Clark",
+      "category": "Fiddler",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9822282.jpg",
+      "captionRaw": "Alvin Harold Clark, fiddler",
+      "source": "slideshow"
+    },
+    {
+      "name": "Cecil Thorstein Isliefson",
+      "category": "Fiddler",
+      "posthumous": true,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": null,
+      "captionRaw": null,
+      "source": "history-page"
+    },
+    {
+      "name": "Luella Noble",
+      "category": "Accompanist",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/2441784.jpg",
+      "captionRaw": "Luella Noble, accompanist",
+      "source": "slideshow"
+    },
+    {
+      "name": "Noreen Pongoski",
+      "category": "Accompanist",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9720285.jpg",
+      "captionRaw": "Noreen Pongoski, accompanist",
+      "source": "slideshow"
+    }
+  ],
+  "photos": [
+    {
+      "caption": "Alvin Harold Clark, fiddler",
+      "width": 400,
+      "height": 400,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/9822282.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9822282.jpg"
+    },
+    {
+      "caption": "Alvin Clark performing",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/8099254.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/8099254.jpg"
+    },
+    {
+      "caption": "Alvin Clark performing with the band",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/869502.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/869502.jpg"
+    },
+    {
+      "caption": "Diana Emerson daughter and Deanna Isliefson wife ",
+      "width": 400,
+      "height": 268,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/4126088.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4126088.jpg"
+    },
+    {
+      "caption": "Jett Emerson performing musical tribute for his grandfather Cecil Isliefson",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5535603.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/5535603.jpg"
+    },
+    {
+      "caption": "Southglen Fiddlers performing musical tribute for Cecil Isliefson ",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/4472593.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4472593.jpg"
+    },
+    {
+      "caption": "Luella Noble, accompanist",
+      "width": 400,
+      "height": 400,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2441784.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/2441784.jpg"
+    },
+    {
+      "caption": "Luella Noble performing",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/8958474.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/8958474.jpg"
+    },
+    {
+      "caption": "Luella Noble performing with the band",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/4447721.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4447721.jpg"
+    },
+    {
+      "caption": "Noreen Pongoski, accompanist",
+      "width": 400,
+      "height": 400,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/9720285.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9720285.jpg"
+    },
+    {
+      "caption": "Noreen Pongoski performing",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5254569.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/5254569.jpg"
+    },
+    {
+      "caption": "Noreen Pongoski performing with the band",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/568481.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/568481.jpg"
+    }
+  ],
+  "format": "slideshow",
+  "sourceUrl": "https://www.mbfiddleassociation.org/2015-inductees.html",
+  "lastmod": "2025-02-05T02:49:42+00:00"
+}

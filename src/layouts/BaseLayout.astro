@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  locale?: 'en' | 'fr';
+  ogImage?: string; // absolute or root-relative URL for the Open Graph / Twitter card image
+  ogType?: 'website' | 'article' | 'event';
+}
+
+const {
+  title,
+  description,
+  locale = 'en',
+  ogImage,
+  ogType = 'website',
+} = Astro.props;
+
+const siteUrl = Astro.site?.origin ?? 'https://www.mbfiddleassociation.org';
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+
+// Cloudflare Web Analytics is cookieless and privacy-friendly — no consent banner
+// required. We only emit the snippet when a token is configured; otherwise this is a
+// plain static site with no third-party telemetry at all.
+const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
+// Social preview image — use the per-page override if given, otherwise a site-wide
+// default. The default path doesn't exist yet; it'll come from the board's asset pass.
+const socialImage = ogImage
+  ? ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).toString()
+  : new URL('/og-default.jpg', siteUrl).toString();
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph — consumed by Facebook, LinkedIn, most chat apps -->
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:site_name" content="Manitoba Fiddle Association" />
+    <meta property="og:locale" content={locale === 'fr' ? 'fr_CA' : 'en_CA'} />
+
+    <!-- Twitter / X — the summary_large_image card format uses the same OG image -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={socialImage} />
+
+    {cfAnalyticsToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}
+      ></script>
+    )}
+  </head>
+  <body class="min-h-screen flex flex-col antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-ink focus:px-3 focus:py-2 focus:text-white">Skip to content</a>
+    <SiteHeader />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

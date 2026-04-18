@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getNewsPosts } from '../../../sanity/queries';
+import { urlFor } from '../../../sanity/client';
+
+const posts = await getNewsPosts();
+
+// Years present in the data, newest first. Every post renders to the DOM; the client
+// script filters visibility based on the URL's ?year= param or the chip buttons.
+// Astro.url.searchParams isn't reliable with output:'static' — the component runs once
+// at build time, so filtering has to happen client-side.
+const years = Array.from(
+  new Set(posts.map((p) => new Date(p.publishedAt).getFullYear())),
+).sort((a, b) => b - a);
+
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-CA', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+---
+
+<BaseLayout title="News — Manitoba Fiddle Association" description="Latest news from the Manitoba Fiddle Association — contests, events, inductees, and announcements.">
+  <article class="mx-auto max-w-5xl px-6 py-12 md:py-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">News</p>
+    <h1 class="mt-2 font-serif text-4xl md:text-5xl font-semibold text-ink text-balance leading-tight">
+      News and announcements
+    </h1>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <span class="text-xs font-semibold uppercase tracking-wider text-ink/60">Filter by year</span>
+      <button data-year="" class="year-chip rounded-full px-3 py-1 text-sm border bg-brand-700 text-white border-brand-700 cursor-pointer">All</button>
+      {years.map((y) => (
+        <button
+          data-year={String(y)}
+          class="year-chip rounded-full px-3 py-1 text-sm border bg-white text-ink border-neutral-300 hover:border-brand-700 cursor-pointer"
+        >{y}</button>
+      ))}
+    </div>
+
+    <div class="mt-4">
+      <label class="flex items-center gap-2 max-w-md">
+        <span class="text-xs font-semibold uppercase tracking-wider text-ink/60">Search</span>
+        <input
+          id="news-search"
+          type="search"
+          placeholder="Keyword…"
+          class="flex-1 rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-sm focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-100"
+        />
+      </label>
+    </div>
+
+    <p id="news-empty" class="mt-12 text-ink/70 hidden">No posts match this filter.</p>
+
+    <ul id="news-list" class="mt-10 grid gap-8 md:grid-cols-2">
+      {posts.map((p) => (
+        <li
+          class="news-card flex flex-col rounded-lg border border-neutral-200 bg-white overflow-hidden"
+          data-year={String(new Date(p.publishedAt).getFullYear())}
+          data-title={p.title.toLowerCase()}
+          data-excerpt={(p.excerpt ?? '').toLowerCase()}
+        >
+          {p.coverImage?.asset?.url && (
+            <a href={`/en/news/${p.slug.current}`} class="block aspect-[16/9] overflow-hidden bg-neutral-100">
+              <img
+                src={urlFor(p.coverImage).width(800).height(450).fit('crop').auto('format').url()}
+                alt={p.coverImage.alt ?? ''}
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </a>
+          )}
+          <div class="flex flex-col flex-1 p-5">
+            <p class="text-xs font-medium text-ink/60">{fmt(p.publishedAt)}</p>
+            <h2 class="mt-1 font-serif text-xl font-semibold text-ink leading-snug">
+              <a href={`/en/news/${p.slug.current}`} class="no-underline text-ink hover:text-brand-700">{p.title}</a>
+            </h2>
+            {p.excerpt && <p class="mt-2 text-sm text-ink/70 leading-relaxed">{p.excerpt}</p>}
+            <a href={`/en/news/${p.slug.current}`} class="mt-auto pt-4 text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+              Read the post →
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </article>
+
+  <!-- Client-side filter: year chips + keyword search, both compose. Chip state rides
+       in the URL via history.replaceState so a filtered view is shareable. -->
+  <script is:inline>
+    (() => {
+      const chips = document.querySelectorAll('.year-chip');
+      const cards = document.querySelectorAll('.news-card');
+      const search = document.getElementById('news-search');
+      const emptyMsg = document.getElementById('news-empty');
+
+      let year = new URLSearchParams(location.search).get('year') || '';
+      let query = '';
+
+      function apply() {
+        let visible = 0;
+        cards.forEach((card) => {
+          const yearMatch = !year || card.dataset.year === year;
+          const hay = (card.dataset.title || '') + ' ' + (card.dataset.excerpt || '');
+          const queryMatch = !query || hay.includes(query);
+          const show = yearMatch && queryMatch;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        if (emptyMsg) emptyMsg.classList.toggle('hidden', visible > 0);
+
+        chips.forEach((chip) => {
+          const active = (chip.dataset.year || '') === year;
+          chip.classList.toggle('bg-brand-700', active);
+          chip.classList.toggle('text-white', active);
+          chip.classList.toggle('border-brand-700', active);
+          chip.classList.toggle('bg-white', !active);
+          chip.classList.toggle('text-ink', !active);
+          chip.classList.toggle('border-neutral-300', !active);
+        });
+      }
+
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          year = chip.dataset.year || '';
+          const url = new URL(location.href);
+          if (year) url.searchParams.set('year', year);
+          else url.searchParams.delete('year');
+          history.replaceState(null, '', url);
+          apply();
+        });
+      });
+
+      if (search) {
+        search.addEventListener('input', () => {
+          query = search.value.trim().toLowerCase();
+          apply();
+        });
+      }
+
+      apply();
+    })();
+  </script>
+</BaseLayout>

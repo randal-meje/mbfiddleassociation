@@ -1,0 +1,32 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="Thank you"
+  eyebrow="Contact"
+  subtitle="Your message is on its way to the MFA board."
+  description="Confirmation that your message to the Manitoba Fiddle Association was received."
+>
+  <p>
+    Thanks for reaching out. We read every message and a board member will reply
+    within a few days. If your note is time-sensitive and you don't hear back,
+    feel free to message us on
+    <a href="https://www.facebook.com/ManitobaFiddleAssociation">Facebook</a>.
+  </p>
+
+  <p class="not-prose mt-8 flex flex-wrap gap-3">
+    <a
+      href="/en/"
+      class="inline-flex items-center rounded-md bg-brand-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-800"
+    >
+      Back to home
+    </a>
+    <a
+      href="/en/news"
+      class="inline-flex items-center rounded-md border border-neutral-300 px-5 py-2.5 text-sm font-medium text-ink hover:bg-neutral-50"
+    >
+      Read the latest news
+    </a>
+  </p>
+</PageLayout>

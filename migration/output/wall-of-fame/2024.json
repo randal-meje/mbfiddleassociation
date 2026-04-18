@@ -1,0 +1,51 @@
+{
+  "year": 2024,
+  "title": "2024 Wall of Fame Inductees",
+  "intro": "Click the name of each inductee for an article highlighting their contributions.​",
+  "inductees": [
+    {
+      "name": "Lucien Laramee",
+      "category": "Fiddler",
+      "bioPdfUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/lucien_laramee_2024.pdf",
+      "bioPdfLocal": "/assets/uploads/1/9/6/9/19690537/lucien_laramee_2024.pdf",
+      "photoLocal": null,
+      "source": "list"
+    },
+    {
+      "name": "Johnny Johannesson",
+      "category": "Fiddler",
+      "bioPdfUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2024-07_johnny_and_kris_johannesson.pdf",
+      "bioPdfLocal": "/assets/uploads/1/9/6/9/19690537/2024-07_johnny_and_kris_johannesson.pdf",
+      "photoLocal": null,
+      "source": "list"
+    },
+    {
+      "name": "Kris Johannesson",
+      "category": "Fiddler",
+      "bioPdfUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2024-07_johnny_and_kris_johannesson.pdf",
+      "bioPdfLocal": "/assets/uploads/1/9/6/9/19690537/2024-07_johnny_and_kris_johannesson.pdf",
+      "photoLocal": null,
+      "source": "list"
+    },
+    {
+      "name": "Evelyn Gillander",
+      "category": "Accompanist",
+      "bioPdfUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/evelyn_gillander_2024.pdf",
+      "bioPdfLocal": "/assets/uploads/1/9/6/9/19690537/evelyn_gillander_2024.pdf",
+      "photoLocal": null,
+      "source": "list"
+    },
+    {
+      "name": "Richard & Arlene Graham",
+      "category": "Builder/Promoter",
+      "bioPdfUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/richard_and_arlene_graham_2024.pdf",
+      "bioPdfLocal": "/assets/uploads/1/9/6/9/19690537/richard_and_arlene_graham_2024.pdf",
+      "photoLocal": null,
+      "source": "list"
+    }
+  ],
+  "photos": [],
+  "format": "list",
+  "sourceUrl": "https://www.mbfiddleassociation.org/2024-inductees.html",
+  "lastmod": "2025-02-05T02:49:42+00:00"
+}

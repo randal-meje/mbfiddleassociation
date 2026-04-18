@@ -1,0 +1,108 @@
+{
+  "year": 2013,
+  "title": "2013 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    {
+      "name": "Lorne Zayshley",
+      "category": "Fiddler",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_649761.jpg",
+      "captionRaw": "Lorne Zayshley in the fiddler category",
+      "source": "slideshow"
+    },
+    {
+      "name": "Barry Forman",
+      "category": "Fiddler",
+      "posthumous": true,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_773015.jpg",
+      "captionRaw": "Barry Forman (posthumously) in the fiddler category - accepting on his behalf was his son Kent Forman",
+      "source": "slideshow"
+    },
+    {
+      "name": "Bill Gray",
+      "category": "Builder/Promoter",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_9549338.jpg",
+      "captionRaw": "Bill Gray in the builder category",
+      "source": "slideshow"
+    },
+    {
+      "name": "Joan MacKay",
+      "category": "Accompanist",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_5986288.jpg",
+      "captionRaw": "Joan MacKay in the accompanist category",
+      "source": "slideshow"
+    }
+  ],
+  "photos": [
+    {
+      "caption": "Lorne Zayshley in the fiddler category",
+      "width": 185,
+      "height": 250,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_649761.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_649761.jpg"
+    },
+    {
+      "caption": "Lorne Zayshley performing",
+      "width": 333,
+      "height": 221,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_2927991.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_2927991.jpg"
+    },
+    {
+      "caption": "Barry Forman (posthumously) in the fiddler category - accepting on his behalf was his son Kent Forman",
+      "width": 185,
+      "height": 250,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_773015.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_773015.jpg"
+    },
+    {
+      "caption": "Kent Forman performing in honor of Barry Forman",
+      "width": 333,
+      "height": 221,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_1315304.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_1315304.jpg"
+    },
+    {
+      "caption": "Bill Gray in the builder category",
+      "width": 185,
+      "height": 250,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_9549338.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_9549338.jpg"
+    },
+    {
+      "caption": "Bill Gray performing",
+      "width": 283,
+      "height": 250,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_9732888.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_9732888.jpg"
+    },
+    {
+      "caption": "Joan MacKay in the accompanist category",
+      "width": 185,
+      "height": 250,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_5986288.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_5986288.jpg"
+    },
+    {
+      "caption": "Joan MacKay performing",
+      "width": 333,
+      "height": 221,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/_1008587.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/_1008587.jpg"
+    }
+  ],
+  "format": "slideshow",
+  "sourceUrl": "https://www.mbfiddleassociation.org/2013-inductees.html",
+  "lastmod": "2025-02-05T02:49:42+00:00"
+}

@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getAllEvents, EVENT_CATEGORY_LABEL } from '../../../sanity/queries';
+import { urlFor } from '../../../sanity/client';
+
+const events = await getAllEvents();
+
+const now = new Date();
+// Treat an event as upcoming if its end (or start, if no end) is today or later. That
+// way a day-long or multi-day event stays in "upcoming" until it's actually past.
+const upcoming = events.filter((e) => {
+  const tail = e.endDate ?? e.startDate;
+  return new Date(tail) >= now;
+});
+const past = events.filter((e) => !upcoming.includes(e)).reverse();
+
+const categoriesPresent = Array.from(new Set(events.flatMap((e) => e.categories ?? [])));
+
+const fmtDateRange = (start: string, end: string | undefined, allDay: boolean | undefined) => {
+  const s = new Date(start);
+  const opts: Intl.DateTimeFormatOptions = {
+    weekday: 'short', month: 'short', day: 'numeric', year: 'numeric',
+  };
+  const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+  const sDate = s.toLocaleDateString('en-CA', opts);
+  const sTime = allDay ? '' : s.toLocaleTimeString('en-CA', tOpts);
+  if (!end) return `${sDate}${sTime ? ' · ' + sTime : ''}`;
+  const e = new Date(end);
+  const sameDay = s.toDateString() === e.toDateString();
+  if (sameDay) {
+    const eTime = allDay ? '' : e.toLocaleTimeString('en-CA', tOpts);
+    return `${sDate}${sTime ? ' · ' + sTime : ''}${eTime ? '–' + eTime : ''}`;
+  }
+  return `${sDate} – ${e.toLocaleDateString('en-CA', opts)}`;
+};
+---
+
+<BaseLayout
+  title="Events — Manitoba Fiddle Association"
+  description="Upcoming MFA events — jams, workshops, concerts, competitions, camps, and the AGM."
+>
+  <article class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">Events</p>
+    <h1 class="mt-2 font-serif text-4xl md:text-5xl font-semibold text-ink text-balance leading-tight">
+      Jams, workshops, and fiddle happenings
+    </h1>
+
+    <!-- View toggle is two real routes. With output:'static' there's no server-side
+         way to branch on ?view=; each view needs its own prerendered URL. -->
+    <div class="mt-8 inline-flex rounded-md border border-neutral-300 bg-white text-sm" role="tablist">
+      <a href="/en/events" role="tab" aria-selected="true" class="px-4 py-2 no-underline bg-brand-700 text-white">List</a>
+      <a href="/en/events/calendar" role="tab" aria-selected="false" class="px-4 py-2 no-underline text-ink hover:bg-brand-50 border-l border-neutral-300">Calendar</a>
+    </div>
+
+    <!-- Category chips. Click = client-side filter (URL gains ?category=…, the page
+         doesn't reload). All events render to the DOM; the chip script hides the
+         non-matching ones. -->
+    <div class="mt-6 flex flex-wrap items-center gap-2">
+      <span class="text-xs font-semibold uppercase tracking-wider text-ink/60 mr-2">Category</span>
+      <button data-category="" class="category-chip rounded-full px-3 py-1 text-sm border bg-brand-700 text-white border-brand-700 cursor-pointer">All</button>
+      {categoriesPresent.map((c) => (
+        <button
+          data-category={c}
+          class="category-chip rounded-full px-3 py-1 text-sm border bg-white text-ink border-neutral-300 hover:border-brand-700 cursor-pointer"
+        >{EVENT_CATEGORY_LABEL[c]}</button>
+      ))}
+    </div>
+
+    {events.length === 0 && (
+      <p class="mt-12 text-ink/70 italic">No events yet. The board will post new events here as they're scheduled.</p>
+    )}
+
+    {events.length > 0 && (
+      <p class="mt-6 text-sm text-ink/60">
+        Subscribe to the full calendar in Apple Calendar / Google Calendar:
+        <a href="/en/events/calendar.ics" class="underline text-brand-700 hover:text-brand-800 ml-1">
+          mfa-calendar.ics
+        </a>
+      </p>
+    )}
+
+    {events.length > 0 && (
+      <div class="mt-10 space-y-12">
+        <section>
+          <h2 class="font-serif text-2xl font-semibold text-ink border-b border-neutral-200 pb-2">Upcoming</h2>
+          <ul id="upcoming-list" class="mt-6 space-y-6">
+            {upcoming.map((e) => (
+              <li
+                class="event-row flex flex-col md:flex-row gap-4 md:gap-6 rounded-lg border border-neutral-200 bg-white overflow-hidden"
+                data-categories={(e.categories ?? []).join(',')}
+              >
+                {e.coverImage?.asset?.url && (
+                  <a href={`/en/events/${e.slug.current}`} class="md:w-56 md:shrink-0 aspect-[16/9] md:aspect-[4/3] overflow-hidden bg-neutral-100">
+                    <img
+                      src={urlFor(e.coverImage).width(600).height(450).fit('crop').auto('format').url()}
+                      alt={e.coverImage.alt ?? ''}
+                      loading="lazy"
+                      class="w-full h-full object-cover"
+                    />
+                  </a>
+                )}
+                <div class="flex-1 p-5 md:py-6">
+                  <div class="flex items-baseline flex-wrap gap-3">
+                    <span class="text-xs font-medium text-ink/60">{fmtDateRange(e.startDate, e.endDate, e.allDay)}</span>
+                    {(e.categories ?? []).map((c) => (
+                      <span class="inline-flex items-center rounded-full bg-brand-50 text-brand-700 text-xs font-medium px-2 py-0.5 uppercase tracking-wider">
+                        {EVENT_CATEGORY_LABEL[c]}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 class="mt-1 font-serif text-xl font-semibold text-ink leading-snug">
+                    <a href={`/en/events/${e.slug.current}`} class="no-underline text-ink hover:text-brand-700">{e.title}</a>
+                  </h3>
+                  {e.location && <p class="mt-1 text-sm text-ink/70">{e.location}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p id="upcoming-empty" class="mt-6 text-ink/70 italic hidden">No upcoming events in this category.</p>
+        </section>
+
+        {past.length > 0 && (
+          <section>
+            <details class="group">
+              <summary class="cursor-pointer font-serif text-2xl font-semibold text-ink border-b border-neutral-200 pb-2 list-none flex items-center justify-between">
+                <span>Past events</span>
+                <span class="text-sm text-ink/50 group-open:rotate-180 transition">▼</span>
+              </summary>
+              <ul id="past-list" class="mt-6 space-y-4 text-sm">
+                {past.map((e) => (
+                  <li
+                    class="event-row flex items-baseline gap-3"
+                    data-categories={(e.categories ?? []).join(',')}
+                  >
+                    <span class="text-ink/60 w-40 shrink-0">{fmtDateRange(e.startDate, e.endDate, e.allDay)}</span>
+                    <a href={`/en/events/${e.slug.current}`} class="text-ink no-underline hover:text-brand-700">{e.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </section>
+        )}
+      </div>
+    )}
+  </article>
+
+  <!-- Tiny filter script. Reads ?category= from the URL on load; clicking a chip
+       updates the URL (history.replaceState) and toggles visibility. No full page
+       reload, no server-side branching, works with static hosting. -->
+  <script is:inline>
+    (() => {
+      const chips = document.querySelectorAll('.category-chip');
+      const rows = document.querySelectorAll('.event-row');
+      const emptyMsg = document.getElementById('upcoming-empty');
+      const upcomingList = document.getElementById('upcoming-list');
+
+      function apply(category) {
+        let visibleUpcoming = 0;
+        rows.forEach((row) => {
+          const cats = (row.dataset.categories || '').split(',').filter(Boolean);
+          const match = !category || cats.includes(category);
+          row.style.display = match ? '' : 'none';
+          if (match && row.parentElement === upcomingList) visibleUpcoming++;
+        });
+        if (emptyMsg) emptyMsg.classList.toggle('hidden', visibleUpcoming > 0);
+
+        chips.forEach((chip) => {
+          const active = (chip.dataset.category || '') === category;
+          chip.classList.toggle('bg-brand-700', active);
+          chip.classList.toggle('text-white', active);
+          chip.classList.toggle('border-brand-700', active);
+          chip.classList.toggle('bg-white', !active);
+          chip.classList.toggle('text-ink', !active);
+          chip.classList.toggle('border-neutral-300', !active);
+        });
+      }
+
+      const initial = new URLSearchParams(location.search).get('category') || '';
+      apply(initial);
+
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const category = chip.dataset.category || '';
+          const url = new URL(location.href);
+          if (category) url.searchParams.set('category', category);
+          else url.searchParams.delete('category');
+          history.replaceState(null, '', url);
+          apply(category);
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

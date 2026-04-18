@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getAllEvents } from '../../../sanity/queries';
+
+const events = await getAllEvents();
+
+// All-day events in both FullCalendar and iCalendar use an EXCLUSIVE end date: an event
+// that runs June 4-6 inclusive needs end=June 7, otherwise only the 4th and 5th show.
+// Editors set the inclusive last day in Studio (the natural meaning of "end date"); we
+// shift by a day here before passing to FullCalendar.
+const addDay = (iso: string) => {
+  const d = new Date(iso);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString();
+};
+
+const calendarEvents = events.map((e) => ({
+  id: e.slug.current,
+  title: e.title,
+  start: e.startDate,
+  end: e.endDate ? (e.allDay ? addDay(e.endDate) : e.endDate) : undefined,
+  allDay: !!e.allDay,
+  url: `/en/events/${e.slug.current}`,
+  classNames: (e.categories ?? []).map((c) => `cat-${c}`),
+}));
+---
+
+<BaseLayout
+  title="Events calendar — Manitoba Fiddle Association"
+  description="Month view of upcoming MFA events."
+>
+  <article class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">Events</p>
+    <h1 class="mt-2 font-serif text-4xl md:text-5xl font-semibold text-ink text-balance leading-tight">
+      Calendar
+    </h1>
+
+    <!-- View toggle: List ↔ Calendar on their own routes so static generation works. -->
+    <div class="mt-8 inline-flex rounded-md border border-neutral-300 bg-white text-sm" role="tablist">
+      <a href="/en/events" class="px-4 py-2 no-underline text-ink hover:bg-brand-50" role="tab" aria-selected="false">List</a>
+      <a href="/en/events/calendar" class="px-4 py-2 no-underline bg-brand-700 text-white border-l border-neutral-300" role="tab" aria-selected="true">Calendar</a>
+    </div>
+
+    {events.length === 0 ? (
+      <p class="mt-10 rounded-lg border border-neutral-200 bg-white p-6 text-ink/70 italic">
+        No events yet. The board will post events here as they're scheduled.
+      </p>
+    ) : (
+      <>
+        <div id="calendar" class="mt-10 rounded-lg border border-neutral-200 bg-white p-4"></div>
+        <script type="application/json" id="events-data" set:html={JSON.stringify(calendarEvents)} />
+        <!-- FullCalendar island. ~200 KB gz, loaded only here. -->
+        <script>
+          import { Calendar } from '@fullcalendar/core';
+          import dayGridPlugin from '@fullcalendar/daygrid';
+
+          const el = document.getElementById('calendar');
+          const data = document.getElementById('events-data');
+          if (el && data) {
+            const events = JSON.parse(data.textContent ?? '[]');
+            const calendar = new Calendar(el, {
+              plugins: [dayGridPlugin],
+              initialView: 'dayGridMonth',
+              // Force timed events to render as blocks (not dots) so they sit visually
+              // next to all-day events on the grid. The CSS theming below differentiates
+              // them via eventClassNames.
+              eventDisplay: 'block',
+              headerToolbar: { left: 'prev,next today', center: 'title', right: '' },
+              height: 'auto',
+              events,
+              eventClassNames: (info) =>
+                info.event.allDay ? 'fc-event-mfa-allday' : 'fc-event-mfa-timed',
+              eventClick: (info) => {
+                info.jsEvent.preventDefault();
+                if (info.event.url) window.location.href = info.event.url;
+              },
+            });
+            calendar.render();
+          }
+        </script>
+        <style is:global>
+          #calendar .fc-button-primary {
+            background-color: var(--color-brand-700);
+            border-color: var(--color-brand-700);
+          }
+          #calendar .fc-button-primary:hover,
+          #calendar .fc-button-primary:not(:disabled):active {
+            background-color: var(--color-brand-800);
+            border-color: var(--color-brand-800);
+          }
+          #calendar .fc-event { cursor: pointer; }
+          #calendar .fc-daygrid-event { white-space: normal; }
+          /* All-day events: solid brand block, white type. */
+          #calendar .fc-event-mfa-allday {
+            background-color: var(--color-brand-700);
+            border-color: var(--color-brand-700);
+            color: white;
+          }
+          /* Timed events: white fill with brand outline so they read clearly next to
+             solid all-day bars on the grid. */
+          #calendar .fc-event-mfa-timed {
+            background-color: white;
+            border: 1px solid var(--color-brand-700);
+            color: var(--color-brand-700);
+          }
+          #calendar .fc-event-mfa-timed .fc-event-title,
+          #calendar .fc-event-mfa-timed .fc-event-time {
+            color: var(--color-brand-700);
+          }
+        </style>
+      </>
+    )}
+  </article>
+</BaseLayout>

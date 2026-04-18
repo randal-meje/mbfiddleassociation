@@ -1,0 +1,15 @@
+{
+  "year": 2011,
+  "title": "2011 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    { "name": "Emile Lavallee", "category": "Fiddler", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Carl Plohman", "category": "Fiddler", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Floyd Lacroix", "category": "Fiddler", "posthumous": true, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "George/Myrtle Hutlet", "category": "Builder", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" }
+  ],
+  "photos": [],
+  "format": "history-page",
+  "sourceUrl": "https://www.mbfiddleassociation.org/inductee-history.html",
+  "lastmod": null
+}

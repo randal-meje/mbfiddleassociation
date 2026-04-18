@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getNewsPost, getNewsPosts, renderPortableText } from '../../../sanity/queries';
+import { urlFor } from '../../../sanity/client';
+
+// Prerender one page per published news post. The year filter in getStaticPaths isn't
+// needed — any post that would 404 is filtered out here by the published-only query.
+//
+// Neighbor props (prev/next) are computed from the same ordered list that feeds the
+// index page (newest first). "Prev" is the neighbor higher in the list (newer) and
+// "Next" is lower (older) — so Next→Next walks down the index in reading order.
+export async function getStaticPaths() {
+  const posts = await getNewsPosts();
+  const neighbor = (i: number) => {
+    const p = posts[i];
+    return p ? { slug: p.slug.current, title: p.title } : null;
+  };
+  return posts.map((p, i) => ({
+    params: { slug: p.slug.current },
+    props: { prev: neighbor(i - 1), next: neighbor(i + 1) },
+  }));
+}
+
+const { slug } = Astro.params;
+const { prev, next } = Astro.props as {
+  prev: { slug: string; title: string } | null;
+  next: { slug: string; title: string } | null;
+};
+const post = await getNewsPost(slug as string);
+
+if (!post) {
+  // Return a 404 for URLs that weren't in getStaticPaths at build time (e.g. a slug
+  // typo, or a post whose publish date has been moved into the future).
+  return new Response(null, { status: 404 });
+}
+
+const bodyHtml = renderPortableText(post.body);
+
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-CA', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+---
+
+<BaseLayout
+  title={`${post.title} — Manitoba Fiddle Association`}
+  description={post.excerpt}
+  ogType="article"
+  ogImage={post.coverImage?.asset?.url}
+>
+  <article class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
+      <a href="/en/news" class="no-underline hover:text-brand-800">News</a>
+      <span class="text-ink/40"> · </span>
+      <time datetime={post.publishedAt} class="text-ink/60">{fmt(post.publishedAt)}</time>
+    </p>
+    <h1 class="mt-3 font-serif text-4xl md:text-5xl font-semibold text-ink text-balance leading-tight">
+      {post.title}
+    </h1>
+    {post.author && (
+      <p class="mt-2 text-sm text-ink/60">By {post.author}</p>
+    )}
+
+    {post.coverImage?.asset?.url && (
+      <img
+        src={urlFor(post.coverImage).width(1200).auto('format').url()}
+        alt={post.coverImage.alt ?? ''}
+        class="mt-8 w-full rounded-lg border border-neutral-200 bg-neutral-100"
+      />
+    )}
+
+    {post.attachments && post.attachments.length > 0 && (
+      <ul class="mt-8 space-y-2">
+        {post.attachments.map((a) => (
+          <li>
+            <a
+              href={a.asset?.url}
+              class="inline-flex items-center gap-2 rounded-md border border-brand-700 px-4 py-2 text-sm font-medium text-brand-700 no-underline hover:bg-brand-50"
+            >
+              ↓ {a.label ?? a.asset?.originalFilename ?? 'Download'}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <div class="mt-8 prose prose-neutral max-w-none" set:html={bodyHtml} />
+
+    <nav
+      class="mt-12 border-t border-neutral-200 pt-6 grid gap-4 sm:grid-cols-2"
+      aria-label="Article navigation"
+    >
+      {prev ? (
+        <a
+          href={`/en/news/${prev.slug}`}
+          class="group block rounded-md border border-neutral-200 p-4 no-underline hover:border-brand-700"
+        >
+          <span class="block text-xs font-semibold uppercase tracking-wider text-ink/60">
+            ← Prev
+          </span>
+          <span class="mt-1 block text-sm font-medium text-ink group-hover:text-brand-700">
+            {prev.title}
+          </span>
+        </a>
+      ) : (
+        <span class="hidden sm:block" aria-hidden="true"></span>
+      )}
+      {next ? (
+        <a
+          href={`/en/news/${next.slug}`}
+          class="group block rounded-md border border-neutral-200 p-4 text-right no-underline hover:border-brand-700 sm:col-start-2"
+        >
+          <span class="block text-xs font-semibold uppercase tracking-wider text-ink/60">
+            Next →
+          </span>
+          <span class="mt-1 block text-sm font-medium text-ink group-hover:text-brand-700">
+            {next.title}
+          </span>
+        </a>
+      ) : (
+        <span class="hidden sm:block" aria-hidden="true"></span>
+      )}
+    </nav>
+
+    <div class="mt-8">
+      <a href="/en/news" class="text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+        ← Back to all news
+      </a>
+    </div>
+  </article>
+</BaseLayout>

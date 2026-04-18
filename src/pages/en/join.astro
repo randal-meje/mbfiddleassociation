@@ -1,0 +1,90 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getPage, renderPortableText } from '../../sanity/queries';
+
+const page = await getPage('join');
+const bodyHtml = page?.body ? renderPortableText(page.body) : null;
+
+// The board uploads a fresh application PDF to Sanity (as an attachment on the page
+// doc); until then, fall back to the 2024 application archived by the migration scraper.
+const sanityAttachments = page?.attachments ?? [];
+const fallbackPdf = {
+  label: 'Membership application (PDF)',
+  url: 'https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/application_mbfiddleassoc_2024v3_fin.pdf',
+};
+
+const benefits = [
+  'Receive the MFA Newsletter and stay current with fiddling across Manitoba.',
+  'Vote at the Annual General Meeting.',
+  'Nominate inductees to the Wall of Fame.',
+  'Get involved in MFA activities as part of a friendly, enthusiastic team.',
+];
+
+const activities = [
+  'A summer fiddle camp',
+  'Selection of Wall of Fame nominees',
+  'Organizing the Manitoba Fiddle Championships',
+  'Producing a quarterly newsletter',
+  'Planning the next inductee ceremony',
+  'Fundraising',
+  'Membership drives',
+  'Interviewing senior and junior fiddlers for the newsletter',
+];
+---
+
+<PageLayout
+  title={page?.title ?? 'Join the MFA'}
+  subtitle={page?.subtitle}
+  eyebrow="Membership"
+  description="Become a member of the Manitoba Fiddle Association and help preserve fiddle music in our province."
+>
+  {bodyHtml ? (
+    <Fragment set:html={bodyHtml} />
+  ) : (
+    <>
+      <p>
+        As a member of the Manitoba Fiddle Association you gain some personal
+        benefits, and your membership helps promote fiddling across the province.
+        To join, print the application form below and follow the instructions on
+        the document.
+      </p>
+
+      <div class="not-prose my-6">
+        {sanityAttachments.length ? (
+          <ul class="space-y-2">
+            {sanityAttachments.map((a) => (
+              <li>
+                <a
+                  href={a.asset?.url}
+                  class="inline-flex items-center gap-2 rounded-md border border-brand-700 px-4 py-2 text-sm font-medium text-brand-700 no-underline hover:bg-brand-50"
+                >
+                  ↓ {a.label ?? a.asset?.originalFilename ?? 'Download'}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <a
+            href={fallbackPdf.url}
+            class="inline-flex items-center gap-2 rounded-md border border-brand-700 px-4 py-2 text-sm font-medium text-brand-700 no-underline hover:bg-brand-50"
+          >
+            ↓ {fallbackPdf.label}
+          </a>
+        )}
+      </div>
+
+      <h2>Personal benefits</h2>
+      <ol>
+        {benefits.map((b) => <li>{b}</li>)}
+      </ol>
+
+      <h2>Current and planned activities</h2>
+      <p>
+        Activities members can get involved with:
+      </p>
+      <ul>
+        {activities.map((a) => <li>{a}</li>)}
+      </ul>
+    </>
+  )}
+</PageLayout>

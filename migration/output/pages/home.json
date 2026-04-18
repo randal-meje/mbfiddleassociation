@@ -1,0 +1,14 @@
+{
+  "title": "Home",
+  "heading": null,
+  "bodyHtml": "\n\t<div><div class=\"wsite-image wsite-image-border-none \" style=\"padding-top:0px;padding-bottom:10px;margin-left:0px;margin-right:0px;text-align:center\">\n<a href=\"/news/new-for-2024\">\n<img src=\"/assets/uploads/1/9/6/9/19690537/2024-banner-click_orig.jpg\" alt=\"Picture\" style=\"width:auto;max-width:100%\">\n</a>\n<div style=\"display:block;font-size:90%\"></div>\n</div></div>\n\n<div style=\"margin-bottom:0px;margin-top:0px;\">\n\n<div style=\"text-align: center;\"><script src=\"//www.editmysite.com/editor/apps/feed2js/feed2js.php?src=http%3A%2F%2Fwww.mbfiddleassociation.org%2F2%2Ffeed&amp;chan=title&amp;num=4&amp;desc=115&amp;html=p&amp;targ=y&amp;utf=y&amp;css=437341369825121635\" type=\"text/javascript\"></script></div><style type=\"text/css\"> .rss-box-437341369825121635 { background-color:#E5ECF9; border:1px solid #C5D7EF; text-align:left; width: 100%; float: none; margin: 0 auto; } p.rss-title { line-height:16px !important; padding:7px!important; margin: 0 !important;} .rss-title { text-decoration:none; font-family:verdana, sans-serif; font-size:13px; line-height:16px; color:#000 !important; font-weight:700 !important; text-align:left; margin:0; padding:0; } a.rss-title,a:visited.rss-title,a:hover.rss-title { background-color:transparent !important; color:#000; text-decoration:none; border: none !important;} .rss-items { color:#000; border-top:1px solid #C5D7EF; margin:0; padding:0; } .rss-item { font-family:verdana, arial, sans-serif; font-size:11px; font-weight:400; background:#FFF !important; list-style:none; line-height:16px; border-bottom:1px solid #C5D7EF; padding:8px; } ul.rss-items { margin:0 0 5px !important; } ul li.rss-item { background:#FFF; padding:8px !important; } .rss-item a { text-decoration:underline; color:blue !important; font-size:12px; font-weight:700; font-family:arial, sans-serif; border:none; padding:0; } .rss-item a:visited { color:blue !important; } .rss-date { font-size:85%; font-weight:400; color:#F60; } </style></div>\n\n<div><div style=\"height: 10px; overflow: hidden;\"></div>\n\n<div style=\"height: 10px; overflow: hidden;\"></div>\n</div>\n",
+  "sourceUrl": "https://www.mbfiddleassociation.org/index.html",
+  "assets": [
+    {
+      "kind": "image",
+      "originalUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2024-banner-click_orig.jpg",
+      "localPath": "assets/uploads/1/9/6/9/19690537/2024-banner-click_orig.jpg"
+    }
+  ],
+  "lastmod": "2025-02-05T02:49:42+00:00"
+}

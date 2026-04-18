@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Self-hosted variable fonts from @fontsource-variable. Source Serif 4 splits roman
+   and italic across files (italic requires the opsz axis); we load roman-only for now. */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/source-serif-4";
+
+/* Tailwind v4 design tokens — CSS-first config via @theme. Changing a token here updates
+   every utility (text-brand-700, bg-cream, font-serif, etc.) without a JS config file. */
+@theme {
+  /* Warm-red brand ramp anchored on the current Weebly heading red (#8d2424 at step 700).
+     Steps 50-400 provide light surfaces, 500-600 for interactive states, 700 for primary
+     brand presence, 800-950 for deep accents (footer band, heavy headings). */
+  --color-brand-50: #fdf4f3;
+  --color-brand-100: #fbe6e5;
+  --color-brand-200: #f7cdca;
+  --color-brand-300: #efa9a4;
+  --color-brand-400: #e37973;
+  --color-brand-500: #d24e46;
+  --color-brand-600: #bd3832;
+  --color-brand-700: #8d2424;
+  --color-brand-800: #772020;
+  --color-brand-900: #651f1f;
+  --color-brand-950: #360e0e;
+
+  /* Warm neutral body for a whitespace-forward layout that still feels earthy rather
+     than clinical. `cream` is the page-level background; `ink` is heading/body text. */
+  --color-cream: #fbf7f2;
+  --color-ink: #1a1613;
+
+  /* Typography. Source Serif 4 handles display; Inter handles body copy and UI. */
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', ui-serif, Georgia, 'Times New Roman', serif;
+
+  /* Editorial display size beyond Tailwind's defaults, for hero headlines. */
+  --text-display: clamp(2.5rem, 4vw + 1rem, 4.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+}
+
+/* Page defaults: warm body background, Source Serif 4 for headings, Inter for everything
+   else. Keep minimal — component styles override via utility classes, not cascade. */
+html {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01', 'cv11'; /* Inter stylistic set 1, open-a cv11 */
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+}
+
+/* Base-layer defaults so Tailwind utilities (text-white, text-brand-*, etc.) can override
+   them per-component. Without @layer base, these rules win over utilities on any anchor
+   that has a utility class — which silently breaks buttons (brand-700 text on brand-700
+   background = invisible) and dark-band footer links. */
+@layer base {
+  a {
+    color: var(--color-brand-700);
+  }
+  a:hover {
+    color: var(--color-brand-800);
+  }
+}

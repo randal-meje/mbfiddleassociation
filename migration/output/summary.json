@@ -1,0 +1,24 @@
+{
+  "scrapedAt": "2026-04-17T16:00:09.336Z",
+  "sitemapUrlCount": 76,
+  "probedYearsFound": [],
+  "counts": {
+    "newsPosts": 60,
+    "inducteeYears": 8,
+    "inductees": 32,
+    "staticPages": 6,
+    "assets": 181,
+    "assetsDownloaded": 0,
+    "assetsSkipped": 181,
+    "assetsFailed": 0,
+    "skipped": 1,
+    "errors": 0
+  },
+  "skipped": [
+    {
+      "url": "https://www.mbfiddleassociation.org/events.html",
+      "reason": "events"
+    }
+  ],
+  "errors": []
+}

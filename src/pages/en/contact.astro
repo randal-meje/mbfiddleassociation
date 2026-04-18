@@ -1,0 +1,101 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getPage, renderPortableText } from '../../sanity/queries';
+
+const page = await getPage('contact');
+const bodyHtml = page?.body ? renderPortableText(page.body) : null;
+---
+
+<PageLayout
+  title={page?.title ?? 'Contact the MFA'}
+  subtitle={page?.subtitle}
+  eyebrow="Contact"
+  description="Reach the Manitoba Fiddle Association board — questions, newsletter submissions, or general correspondence."
+>
+  {bodyHtml ? (
+    <Fragment set:html={bodyHtml} />
+  ) : (
+    <p>
+      Use the form below to reach the MFA board. We read every message and reply
+      within a few days. For newsletter submissions, the editor is Michelle Sorin.
+    </p>
+  )}
+
+  <!--
+    Netlify form. Detected at build time by Netlify's build plugin (looks for the
+    `data-netlify` attribute). The hidden form-name input lets Netlify route submissions.
+    `bot-field` is a honeypot — real visitors never fill it; bots usually do, and Netlify
+    silently discards those. Email notification routing is configured in the Netlify
+    dashboard, not here.
+   -->
+  <form
+    name="contact"
+    method="POST"
+    action="/en/thank-you"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="not-prose mt-8 grid gap-4"
+  >
+    <input type="hidden" name="form-name" value="contact" />
+    <p class="hidden">
+      <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+    </p>
+
+    <label class="grid gap-1.5">
+      <span class="text-sm font-medium text-ink">Your name</span>
+      <input
+        type="text"
+        name="name"
+        required
+        autocomplete="name"
+        class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-100"
+      />
+    </label>
+
+    <label class="grid gap-1.5">
+      <span class="text-sm font-medium text-ink">Email</span>
+      <input
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-100"
+      />
+    </label>
+
+    <label class="grid gap-1.5">
+      <span class="text-sm font-medium text-ink">Subject</span>
+      <input
+        type="text"
+        name="subject"
+        class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-100"
+      />
+    </label>
+
+    <label class="grid gap-1.5">
+      <span class="text-sm font-medium text-ink">Message</span>
+      <textarea
+        name="message"
+        required
+        rows="6"
+        class="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-100"
+      ></textarea>
+    </label>
+
+    <div class="flex items-center gap-3">
+      <button
+        type="submit"
+        class="inline-flex items-center rounded-md bg-brand-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-800"
+      >
+        Send message
+      </button>
+      <span class="text-xs text-ink/60">Your message goes straight to the board inbox.</span>
+    </div>
+  </form>
+
+  <div class="mt-10 border-t border-neutral-200 pt-6 text-sm text-ink/70">
+    <p>
+      Also find us on <a href="https://www.facebook.com/ManitobaFiddleAssociation" class="underline">Facebook</a>.
+    </p>
+  </div>
+</PageLayout>

@@ -1,0 +1,100 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getPage, renderPortableText } from '../../sanity/queries';
+
+// Fetch the Sanity page if the board has populated it. Otherwise we render starter
+// content transcribed from the current Weebly site so the launch is never empty.
+const page = await getPage('about');
+const bodyHtml = page?.body ? renderPortableText(page.body) : null;
+
+// Current board roster (transcribed from the live mbfiddleassociation.org about page).
+// When the board edits this in Sanity, the CMS content wins; this fallback disappears.
+const executive = [
+  { role: 'President', person: 'Lyla Bilton', place: 'Winnipeg' },
+  { role: 'Past President', person: 'Reg Delannoy', place: 'Winnipeg' },
+  { role: 'Vice President', person: null, place: null },
+  { role: 'Treasurer', person: 'Pat Thomas-Kuhl', place: 'Portage la Prairie' },
+  { role: 'Secretary', person: null, place: null },
+];
+const directors = [
+  { person: 'Gail Beam', place: 'Portage la Prairie' },
+  { person: 'Brian Granger', place: 'Nesbitt' },
+  { person: 'Basil McCallister', place: 'Portage la Prairie' },
+  { person: 'Roland Rey', place: 'St. Claude' },
+  { person: 'Heather Sharp', place: 'Portage la Prairie' },
+];
+const areaReps = [
+  { person: 'Mike Armstrong', place: 'The Pas' },
+  { person: 'Brian Granger', place: 'Nesbitt' },
+  { person: 'Boris Nowasad', place: 'Dauphin' },
+];
+---
+
+<PageLayout
+  title={page?.title ?? 'About the MFA'}
+  subtitle={page?.subtitle}
+  eyebrow="About"
+  description="A volunteer-run provincial association celebrating Manitoba's fiddle heritage."
+>
+  {bodyHtml ? (
+    <Fragment set:html={bodyHtml} />
+  ) : (
+    <>
+      <p class="text-lg font-medium text-brand-800">
+        Encouraging, developing, promoting, and preserving fiddle music as part of
+        our culture and heritage.
+      </p>
+
+      <h2>History</h2>
+      <p>
+        Until 1999, Manitoba was the only Canadian province that did not have a
+        Fiddle Association. On February 6, 1999, a group of around 40 fiddlers
+        from across Manitoba elected an executive council for the Manitoba Fiddle
+        Association (MFA). On March 9, 1999, the MFA was officially incorporated
+        as a non-profit corporation under The Manitoba Corporations Act.
+      </p>
+
+      <h2>Executive</h2>
+      <ul class="not-prose divide-y divide-neutral-200 rounded-lg border border-neutral-200">
+        {executive.map(({ role, person, place }) => (
+          <li class="flex flex-wrap items-baseline justify-between gap-3 px-4 py-3">
+            <span class="text-sm font-medium text-ink/70">{role}</span>
+            <span class="text-sm">
+              {person ? (
+                <>
+                  <strong class="text-ink">{person}</strong>
+                  {place && <span class="text-ink/60"> · {place}</span>}
+                </>
+              ) : (
+                <span class="text-ink/50 italic">Position open</span>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Directors</h2>
+      <ul>
+        {directors.map(({ person, place }) => (
+          <li><strong>{person}</strong> · {place}</li>
+        ))}
+      </ul>
+
+      <h2>Area Representatives</h2>
+      <ul>
+        {areaReps.map(({ person, place }) => (
+          <li><strong>{person}</strong> · {place}</li>
+        ))}
+      </ul>
+
+      <h2>Newsletter Editor</h2>
+      <p><strong>Michelle Sorin</strong>, Lorette — for newsletter submissions, please use the <a href="/en/contact">Contact</a> page.</p>
+
+      <h2>Membership</h2>
+      <p>
+        We welcome new members year-round. See the <a href="/en/join">Join</a> page
+        for the application form and benefits.
+      </p>
+    </>
+  )}
+</PageLayout>

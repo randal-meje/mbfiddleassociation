@@ -1,0 +1,15 @@
+{
+  "year": 2008,
+  "title": "2008 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    { "name": "Gerry Michiels", "category": "Fiddler", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Grant Lamb", "category": "Fiddler", "posthumous": true, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Jean Snider", "category": "Accompanist", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Carl/Shirley Sobkowicz", "category": "Builder", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" }
+  ],
+  "photos": [],
+  "format": "history-page",
+  "sourceUrl": "https://www.mbfiddleassociation.org/inductee-history.html",
+  "lastmod": null
+}

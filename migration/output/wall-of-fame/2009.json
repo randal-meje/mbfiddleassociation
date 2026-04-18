@@ -1,0 +1,15 @@
+{
+  "year": 2009,
+  "title": "2009 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    { "name": "Alex Carriere", "category": "Fiddler", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Eugene Laderoute", "category": "Fiddler", "posthumous": true, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Yvette (Lambert) (Carriere) Audette", "category": "Accompanist", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" },
+    { "name": "Clare/Jean Leslie", "category": "Builder", "posthumous": false, "bioPdfUrl": null, "bioPdfLocal": null, "photoLocal": null, "captionRaw": null, "source": "history-page" }
+  ],
+  "photos": [],
+  "format": "history-page",
+  "sourceUrl": "https://www.mbfiddleassociation.org/inductee-history.html",
+  "lastmod": null
+}

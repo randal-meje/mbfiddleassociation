@@ -1,0 +1,150 @@
+{
+  "year": 2017,
+  "title": "2017 Wall of Fame Inductees",
+  "intro": null,
+  "inductees": [
+    {
+      "name": "Darren Lavallee",
+      "category": "Fiddler",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/1-darren-lavallee-1.jpg",
+      "captionRaw": "Darren Lavallee - Fiddler",
+      "source": "slideshow"
+    },
+    {
+      "name": "Nicholaus Messner",
+      "category": "Fiddler",
+      "posthumous": true,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/5-remi-messner-tribute-to-nicholaus-messner.jpg",
+      "captionRaw": "Remi Messner tribute to Nicholaus Messner - Fiddler (posthumously)",
+      "source": "slideshow"
+    },
+    {
+      "name": "Dennis Nykoliation",
+      "category": "Fiddler",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/8-dennis-nykoliation.jpg",
+      "captionRaw": "Dennis Nykoliation - Fiddler",
+      "source": "slideshow"
+    },
+    {
+      "name": "Bill Stewart",
+      "category": "Accompanist",
+      "posthumous": false,
+      "bioPdfUrl": null,
+      "bioPdfLocal": null,
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/12-bill-stewart.jpg",
+      "captionRaw": "Bill Stewart - Accompanist",
+      "source": "slideshow"
+    }
+  ],
+  "photos": [
+    {
+      "caption": "Darren Lavallee - Fiddler",
+      "width": 300,
+      "height": 400,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/1-darren-lavallee-1.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/1-darren-lavallee-1.jpg"
+    },
+    {
+      "caption": "Darren Lavallee",
+      "width": 400,
+      "height": 298,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/2-darren-lavallee.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/2-darren-lavallee.jpg"
+    },
+    {
+      "caption": "Darren Lavallee",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/3-darren-lavallee.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/3-darren-lavallee.jpg"
+    },
+    {
+      "caption": "Darren Lavallee family",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/4-darren-lavallee-family.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/4-darren-lavallee-family.jpg"
+    },
+    {
+      "caption": "Remi Messner tribute to Nicholaus Messner - Fiddler (posthumously)",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/5-remi-messner-tribute-to-nicholaus-messner.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/5-remi-messner-tribute-to-nicholaus-messner.jpg"
+    },
+    {
+      "caption": "Nicholaus Messner family",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/6-nicholaus-messner-family.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/6-nicholaus-messner-family.jpg"
+    },
+    {
+      "caption": "Nicholaus Messner musical tribute",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/7-nicholaus-messner-musical-tribute.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/7-nicholaus-messner-musical-tribute.jpg"
+    },
+    {
+      "caption": "Dennis Nykoliation - Fiddler",
+      "width": 302,
+      "height": 400,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/8-dennis-nykoliation.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/8-dennis-nykoliation.jpg"
+    },
+    {
+      "caption": "Dennis Nykoliation family and band",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/9-dennis-nykoliation-family-and-band.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/9-dennis-nykoliation-family-and-band.jpg"
+    },
+    {
+      "caption": "Dennis Nykoliation",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/10-dennis-nykoliation.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/10-dennis-nykoliation.jpg"
+    },
+    {
+      "caption": "Dennis Nykoliation Band",
+      "width": 400,
+      "height": 228,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/11-dennis-nykoliation-band.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/11-dennis-nykoliation-band.jpg"
+    },
+    {
+      "caption": "Bill Stewart - Accompanist",
+      "width": 400,
+      "height": 533,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/12-bill-stewart.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/12-bill-stewart.jpg"
+    },
+    {
+      "caption": "Bill Stewart family",
+      "width": 400,
+      "height": 267,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/13-bill-stewart-family.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/13-bill-stewart-family.jpg"
+    },
+    {
+      "caption": "Bill Stewart musical tribute",
+      "width": 400,
+      "height": 208,
+      "photoUrl": "https://www.mbfiddleassociation.org/uploads/1/9/6/9/19690537/14-bill-stewart-musical-tribute.jpg",
+      "photoLocal": "/assets/uploads/1/9/6/9/19690537/14-bill-stewart-musical-tribute.jpg"
+    }
+  ],
+  "format": "slideshow",
+  "sourceUrl": "https://www.mbfiddleassociation.org/2017-inductees.html",
+  "lastmod": "2025-02-05T02:49:42+00:00"
+}

@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  getAllEvents,
+  getNewsPosts,
+  getInducteeYears,
+  getInducteesByYear,
+  type InducteeCategory,
+} from '../../sanity/queries';
+
+const [allEvents, newsPosts, inducteeYears] = await Promise.all([
+  getAllEvents(),
+  getNewsPosts(),
+  getInducteeYears(),
+]);
+
+const now = new Date();
+// Treat an event as upcoming if its end (or start) is today or later — matches the
+// events index page so the two stay consistent.
+const nextEvent =
+  allEvents.find((e) => new Date(e.endDate ?? e.startDate) >= now) ?? null;
+
+const latestNews = newsPosts[0] ?? null;
+
+const spotlightYear = inducteeYears[0] ?? null;
+const spotlightInductees = spotlightYear ? await getInducteesByYear(spotlightYear) : [];
+
+const fmtEventDateTime = (iso: string, allDay: boolean | undefined) => {
+  const d = new Date(iso);
+  const dateStr = d.toLocaleDateString('en-CA', {
+    weekday: 'short', month: 'short', day: 'numeric',
+  });
+  if (allDay) return dateStr;
+  const timeStr = d.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' });
+  return `${dateStr} · ${timeStr}`;
+};
+
+const fmtNewsDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-CA', {
+    year: 'numeric', month: 'long', day: 'numeric',
+  });
+
+const CATEGORY_LABEL: Record<InducteeCategory, string> = {
+  fiddler: 'Fiddler',
+  accompanist: 'Accompanist',
+  builder: 'Builder / Promoter',
+  other: 'Other',
+};
+---
+
+<BaseLayout
+  title="Manitoba Fiddle Association"
+  description="Encouraging, developing, promoting, and preserving fiddle music as part of our culture and heritage."
+  locale="en"
+>
+  <!-- Compact hero: eyebrow + headline + mission line. Centered column so text doesn't
+       appear crowded against one side of the viewport on wide screens. -->
+  <section class="border-b border-neutral-200/80 bg-cream">
+    <div class="mx-auto max-w-3xl px-6 py-14 md:py-20 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">Manitoba · Since 1999</p>
+      <h1
+        class="mt-4 font-serif font-semibold text-ink text-balance"
+        style="font-size: clamp(2rem, 2.5vw + 1rem, 3.25rem); line-height: 1.15; letter-spacing: -0.015em;"
+      >
+        Encouraging, developing, promoting, and preserving fiddle music.
+      </h1>
+      <p class="mx-auto mt-6 max-w-xl text-lg text-ink/75 leading-relaxed">
+        A volunteer-run provincial association celebrating Manitoba's fiddle heritage —
+        our players, our history, and the community that keeps the tradition alive.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a
+          href="/en/events"
+          class="inline-flex items-center rounded-md bg-brand-700 px-5 py-2.5 text-sm font-medium text-white no-underline hover:bg-brand-800"
+        >
+          See upcoming events
+        </a>
+        <a
+          href="/en/join"
+          class="inline-flex items-center rounded-md border border-brand-700 px-5 py-2.5 text-sm font-medium text-brand-700 no-underline hover:bg-brand-50"
+        >
+          Become a member
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community dashboard: three peer cards sitting together. Each card is a preview of
+       its own section. Sizes are equal so the page doesn't imply one bucket matters more
+       than another — which matches how the board itself seems to weight things. -->
+  <section class="mx-auto max-w-6xl px-6 py-14">
+    <div class="grid gap-6 md:grid-cols-3">
+      <!-- Next event -->
+      <article class="flex flex-col rounded-lg border border-neutral-200 bg-white p-6">
+        <p class="text-xs font-semibold uppercase tracking-wider text-brand-700">Next event</p>
+        {nextEvent ? (
+          <>
+            <p class="mt-3 text-xs font-medium text-ink/60">
+              {fmtEventDateTime(nextEvent.startDate, nextEvent.allDay)}
+            </p>
+            <h2 class="mt-2 font-serif text-2xl font-semibold text-ink leading-tight">
+              {nextEvent.title}
+            </h2>
+            {nextEvent.location && (
+              <p class="mt-2 text-sm text-ink/70">{nextEvent.location}</p>
+            )}
+            <a href={`/en/events/${nextEvent.slug.current}`} class="mt-auto pt-4 text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+              Event details →
+            </a>
+          </>
+        ) : (
+          <>
+            <p class="mt-3 text-sm text-ink/70">No upcoming events on the calendar — check back soon.</p>
+            <a href="/en/events" class="mt-auto pt-4 text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+              See all events →
+            </a>
+          </>
+        )}
+      </article>
+
+      <!-- Latest news -->
+      <article class="flex flex-col rounded-lg border border-neutral-200 bg-white p-6">
+        <p class="text-xs font-semibold uppercase tracking-wider text-brand-700">Latest news</p>
+        {latestNews ? (
+          <>
+            <p class="mt-3 text-xs font-medium text-ink/60">{fmtNewsDate(latestNews.publishedAt)}</p>
+            <h2 class="mt-2 font-serif text-2xl font-semibold text-ink leading-tight">
+              {latestNews.title}
+            </h2>
+            {latestNews.excerpt && (
+              <p class="mt-2 text-sm text-ink/70 leading-relaxed">{latestNews.excerpt}</p>
+            )}
+            <a href={`/en/news/${latestNews.slug.current}`} class="mt-auto pt-4 text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+              Read the post →
+            </a>
+          </>
+        ) : (
+          <>
+            <p class="mt-3 text-sm text-ink/70">No posts yet.</p>
+            <a href="/en/news" class="mt-auto pt-4 text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+              See all news →
+            </a>
+          </>
+        )}
+      </article>
+
+      <!-- Wall of Fame spotlight -->
+      <article class="flex flex-col rounded-lg border border-neutral-200 bg-white p-6">
+        {spotlightYear ? (
+          <>
+            <p class="text-xs font-semibold uppercase tracking-wider text-brand-700">Wall of Fame · {spotlightYear}</p>
+            <h2 class="mt-3 font-serif text-2xl font-semibold text-ink leading-tight">
+              Most recent inductees
+            </h2>
+            <ul class="mt-3 space-y-1.5 text-sm text-ink/75">
+              {spotlightInductees.slice(0, 4).map((i) => (
+                <li class="flex justify-between gap-3">
+                  <span class="text-ink">{i.name}</span>
+                  <span class="text-ink/50 text-xs uppercase tracking-wider self-center">{CATEGORY_LABEL[i.category]}</span>
+                </li>
+              ))}
+              {spotlightInductees.length > 4 && (
+                <li class="text-xs text-ink/50">and {spotlightInductees.length - 4} more…</li>
+              )}
+            </ul>
+            <a href={`/en/wall-of-fame/${spotlightYear}`} class="mt-auto pt-4 text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+              See inductee bios →
+            </a>
+          </>
+        ) : (
+          <>
+            <p class="text-xs font-semibold uppercase tracking-wider text-brand-700">Wall of Fame</p>
+            <p class="mt-3 text-sm text-ink/70">Inductees coming soon.</p>
+            <a href="/en/wall-of-fame" class="mt-auto pt-4 text-sm font-medium text-brand-700 no-underline hover:text-brand-800">
+              Visit the Wall of Fame →
+            </a>
+          </>
+        )}
+      </article>
+    </div>
+  </section>
+</BaseLayout>

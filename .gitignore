@@ -1,0 +1,55 @@
+# dependencies
+node_modules/
+migration/node_modules/
+
+# build output
+dist/
+.astro/
+
+# sanity studio build cache
+.sanity/
+
+# env — block every variant, allow .env.example as the documented template.
+# Rationale: Astro/Vite convention is that non-PUBLIC_ vars never reach the
+# browser, but secrets can still leak if a .env.production or similar is ever
+# committed. Default-deny is safer than per-mode allow-listing.
+.env
+.env.*
+!.env.example
+
+# private keys and certs — catch-all for accidental drops at repo root
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_rsa.pub
+
+# logs
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# generic tool caches
+.cache/
+.parcel-cache/
+.tmp/
+tmp/
+
+# scraped binary assets — the migration JSON is tracked, but 22 MB of images/PDFs
+# would bloat the repo. Re-run `npm run scrape` inside migration/ to regenerate.
+migration/output/assets/uploads/
+
+# os cruft
+.DS_Store
+Thumbs.db
+
+# editor / agent
+.vscode/
+.idea/
+*.swp
+.claude/
+
+# Local Netlify folder
+.netlify
