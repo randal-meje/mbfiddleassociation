@@ -30,7 +30,7 @@ export default async (req: Request, _context: Context): Promise<Response> => {
     return new Response('Method not allowed', { status: 405, headers });
   }
 
-  const projectId = process.env.SANITY_PROJECT_ID;
+  const projectId = process.env.PUBLIC_SANITY_PROJECT_ID;
   const buildHook = process.env.NETLIFY_BUILD_HOOK_URL;
   if (!projectId || !buildHook) {
     return new Response('Server not configured', { status: 500, headers });

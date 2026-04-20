@@ -92,11 +92,10 @@ Hosted on Netlify. Auto-deploy on every push to `main`.
 Required environment variables in Netlify → Site configuration →
 Environment variables:
 
-- `PUBLIC_SANITY_PROJECT_ID` — Sanity project ID
+- `PUBLIC_SANITY_PROJECT_ID` — Sanity project ID; the deploy function
+  also reads this to verify Studio session tokens
 - `PUBLIC_SANITY_DATASET` — dataset name (`production`)
 - `PUBLIC_CF_ANALYTICS_TOKEN` — optional, Cloudflare Web Analytics token
-- `SANITY_PROJECT_ID` — same value as `PUBLIC_SANITY_PROJECT_ID`; used
-  server-side by the deploy function to verify Studio session tokens
 - `NETLIFY_BUILD_HOOK_URL` — URL of a build hook created at Site
   configuration → Build & deploy → Build hooks; the deploy function POSTs
   to this to trigger a rebuild
@@ -114,7 +113,7 @@ To set it up end-to-end:
 
 1. In Netlify, create a build hook (Site configuration → Build & deploy →
    Build hooks) and copy the URL.
-2. Add the two server-side env vars above to the Netlify site.
+2. Add `NETLIFY_BUILD_HOOK_URL` to the Netlify site's env vars.
 3. Set `SANITY_STUDIO_DEPLOY_ENDPOINT` to
    `https://www.mbfiddleassociation.org/.netlify/functions/deploy` for the
    Studio build (either in `.env` before `npm run studio:deploy`, or in
