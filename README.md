@@ -66,10 +66,17 @@ repo; they share only the `.env` file for the project ID.
 
 All content lives in Sanity. Board members log in at
 [mbfiddleassociation.sanity.studio](https://mbfiddleassociation.sanity.studio),
-edit documents, and publish. Changes appear on the live site on the next
-deploy — Netlify rebuilds on every push to `main`, and a manual "Trigger
-deploy" in the Netlify dashboard pulls fresh content without needing a git
-push.
+edit documents, and publish.
+
+Publishing in Sanity saves the content but does **not** push it to the live
+site on its own — the Astro site is statically built. When you're ready for
+your changes to go live, open the **Deploy** tool in the Studio sidebar and
+click **Deploy site**. Netlify rebuilds in about 1–2 minutes. You can batch
+several edits before deploying — the button rebuilds with all currently
+published content.
+
+Netlify also rebuilds on every push to `main`, so code changes deploy
+automatically.
 
 Content types:
 
@@ -88,8 +95,32 @@ Environment variables:
 - `PUBLIC_SANITY_PROJECT_ID` — Sanity project ID
 - `PUBLIC_SANITY_DATASET` — dataset name (`production`)
 - `PUBLIC_CF_ANALYTICS_TOKEN` — optional, Cloudflare Web Analytics token
+- `SANITY_PROJECT_ID` — same value as `PUBLIC_SANITY_PROJECT_ID`; used
+  server-side by the deploy function to verify Studio session tokens
+- `NETLIFY_BUILD_HOOK_URL` — URL of a build hook created at Site
+  configuration → Build & deploy → Build hooks; the deploy function POSTs
+  to this to trigger a rebuild
 
 Build command: `npm run build`. Publish directory: `dist/`.
+
+### Deploy button wiring
+
+The "Deploy site" button in Studio hits `/.netlify/functions/deploy`, a
+serverless function that holds the build hook URL server-side so it never
+reaches the Studio bundle. The function verifies the caller is a logged-in
+Sanity user for this project, then fires the hook.
+
+To set it up end-to-end:
+
+1. In Netlify, create a build hook (Site configuration → Build & deploy →
+   Build hooks) and copy the URL.
+2. Add the two server-side env vars above to the Netlify site.
+3. Set `SANITY_STUDIO_DEPLOY_ENDPOINT` to
+   `https://www.mbfiddleassociation.org/.netlify/functions/deploy` for the
+   Studio build (either in `.env` before `npm run studio:deploy`, or in
+   whatever environment builds the Studio).
+4. Run `npm run studio:deploy` — the Deploy tool will appear in the Studio
+   sidebar.
 
 ## Accessibility
 

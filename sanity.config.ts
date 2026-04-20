@@ -3,11 +3,13 @@ import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
 import { table } from '@sanity/table';
 import { schemaTypes } from './src/sanity/schemas';
+import { deployTool } from './src/sanity/tools';
 
 // `sanity dev` / `sanity build` load this file directly and honour env vars prefixed with
 // `SANITY_STUDIO_` (loaded automatically from .env* at the repo root).
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
 const dataset = process.env.SANITY_STUDIO_DATASET ?? 'production';
+const deployEndpoint = process.env.SANITY_STUDIO_DEPLOY_ENDPOINT;
 
 if (!projectId) {
   throw new Error(
@@ -21,5 +23,8 @@ export default defineConfig({
   projectId,
   dataset,
   plugins: [structureTool(), visionTool(), table()],
+  // The deploy tool only appears when the endpoint env var is set — keeps it out of the
+  // Studio for anyone running locally without a Netlify function to call.
+  tools: deployEndpoint ? [deployTool(deployEndpoint)] : [],
   schema: { types: schemaTypes },
 });

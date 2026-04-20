@@ -22,8 +22,10 @@
     "@fullcalendar/daygrid": "^6.1.20",
     "@portabletext/to-html": "^5.0.2",
     "@sanity/client": "^7.21.0",
+    "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "^2.1.1",
     "@sanity/table": "^2.0.1",
+    "@sanity/ui": "^3.1.14",
     "@sanity/vision": "^5.0.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.0.0",
@@ -36,6 +38,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
+    "@netlify/functions": "^5.2.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "typescript": "^5.6.0"
