@@ -25,19 +25,21 @@ const latestNews = newsPosts[0] ?? null;
 const spotlightYear = inducteeYears[0] ?? null;
 const spotlightInductees = spotlightYear ? await getInducteesByYear(spotlightYear) : [];
 
+const TZ = 'America/Winnipeg';
+
 const fmtEventDateTime = (iso: string, allDay: boolean | undefined) => {
   const d = new Date(iso);
   const dateStr = d.toLocaleDateString('en-CA', {
-    weekday: 'short', month: 'short', day: 'numeric',
+    weekday: 'short', month: 'short', day: 'numeric', timeZone: TZ,
   });
   if (allDay) return dateStr;
-  const timeStr = d.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' });
+  const timeStr = d.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit', timeZone: TZ });
   return `${dateStr} · ${timeStr}`;
 };
 
 const fmtNewsDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-CA', {
-    year: 'numeric', month: 'long', day: 'numeric',
+    year: 'numeric', month: 'long', day: 'numeric', timeZone: TZ,
   });
 
 const CATEGORY_LABEL: Record<InducteeCategory, string> = {

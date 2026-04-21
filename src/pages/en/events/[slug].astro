@@ -17,10 +17,12 @@ if (!event) {
 
 const bodyHtml = renderPortableText(event.body);
 
+const TZ = 'America/Winnipeg';
+
 const fmtDate = (iso: string, allDay: boolean | undefined) => {
   const d = new Date(iso);
-  const dOpts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' };
-  const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+  const dOpts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric', timeZone: TZ };
+  const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit', timeZone: TZ };
   return allDay
     ? d.toLocaleDateString('en-CA', dOpts)
     : `${d.toLocaleDateString('en-CA', dOpts)} · ${d.toLocaleTimeString('en-CA', tOpts)}`;

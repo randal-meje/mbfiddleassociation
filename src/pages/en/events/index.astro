@@ -16,17 +16,21 @@ const past = events.filter((e) => !upcoming.includes(e)).reverse();
 
 const categoriesPresent = Array.from(new Set(events.flatMap((e) => e.categories ?? [])));
 
+const TZ = 'America/Winnipeg';
+
 const fmtDateRange = (start: string, end: string | undefined, allDay: boolean | undefined) => {
   const s = new Date(start);
   const opts: Intl.DateTimeFormatOptions = {
-    weekday: 'short', month: 'short', day: 'numeric', year: 'numeric',
+    weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: TZ,
   };
-  const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+  const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit', timeZone: TZ };
   const sDate = s.toLocaleDateString('en-CA', opts);
   const sTime = allDay ? '' : s.toLocaleTimeString('en-CA', tOpts);
   if (!end) return `${sDate}${sTime ? ' · ' + sTime : ''}`;
   const e = new Date(end);
-  const sameDay = s.toDateString() === e.toDateString();
+  // Compare by wall-clock day in Winnipeg, not the server's toDateString() default.
+  const dayKey = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: TZ });
+  const sameDay = dayKey(s) === dayKey(e);
   if (sameDay) {
     const eTime = allDay ? '' : e.toLocaleTimeString('en-CA', tOpts);
     return `${sDate}${sTime ? ' · ' + sTime : ''}${eTime ? '–' + eTime : ''}`;
