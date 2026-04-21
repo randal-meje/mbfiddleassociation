@@ -19,14 +19,21 @@ const bodyHtml = renderPortableText(event.body);
 
 const TZ = 'America/Winnipeg';
 
+const dOpts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric', timeZone: TZ };
+const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit', timeZone: TZ };
+
 const fmtDate = (iso: string, allDay: boolean | undefined) => {
   const d = new Date(iso);
-  const dOpts: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric', timeZone: TZ };
-  const tOpts: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit', timeZone: TZ };
   return allDay
     ? d.toLocaleDateString('en-CA', dOpts)
     : `${d.toLocaleDateString('en-CA', dOpts)} · ${d.toLocaleTimeString('en-CA', tOpts)}`;
 };
+
+const fmtTime = (iso: string) => new Date(iso).toLocaleTimeString('en-CA', tOpts);
+
+// Day key in Winnipeg so we can tell if start and end fall on the same calendar day.
+const dayKey = (iso: string) => new Date(iso).toLocaleDateString('en-CA', { timeZone: TZ });
+const sameDay = event.endDate ? dayKey(event.startDate) === dayKey(event.endDate) : false;
 
 const linkLabel = event.externalLinkLabel?.trim() || 'More info';
 
@@ -87,7 +94,12 @@ const jsonLd = {
         <dt class="w-24 shrink-0 text-ink/60 uppercase tracking-wider text-xs font-semibold self-center">When</dt>
         <dd>
           <time datetime={event.startDate}>{fmtDate(event.startDate, event.allDay)}</time>
-          {event.endDate && <> – <time datetime={event.endDate}>{fmtDate(event.endDate, event.allDay)}</time></>}
+          {event.endDate && !sameDay && (
+            <> – <time datetime={event.endDate}>{fmtDate(event.endDate, event.allDay)}</time></>
+          )}
+          {event.endDate && sameDay && !event.allDay && (
+            <> – <time datetime={event.endDate}>{fmtTime(event.endDate)}</time></>
+          )}
         </dd>
       </div>
       {event.location && (
