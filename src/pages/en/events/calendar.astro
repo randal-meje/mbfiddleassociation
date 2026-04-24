@@ -82,7 +82,7 @@ const calendarEvents = events.map((e) => {
     ) : (
       <>
         <div id="calendar" class="mt-10 rounded-lg border border-neutral-200 bg-white p-4"></div>
-        <script type="application/json" id="events-data" set:html={JSON.stringify(calendarEvents)} />
+        <script is:inline type="application/json" id="events-data" set:html={JSON.stringify(calendarEvents)} />
         <!-- FullCalendar island. ~200 KB gz, loaded only here. -->
         <script>
           import { Calendar } from '@fullcalendar/core';

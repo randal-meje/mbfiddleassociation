@@ -66,6 +66,7 @@ const socialImage = ogImage
 
     {cfAnalyticsToken && (
       <script
+        is:inline
         defer
         src="https://static.cloudflareinsights.com/beacon.min.js"
         data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}
