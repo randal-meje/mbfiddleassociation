@@ -5,20 +5,28 @@ import { urlFor } from '../../../sanity/client';
 
 const posts = await getNewsPosts();
 
+const TZ = 'America/Winnipeg';
+
+// Year in Winnipeg wall-clock — not the build host's TZ. A post published Dec 31
+// Winnipeg is stored as early-Jan UTC, so getFullYear() on the raw Date would bucket
+// it under the wrong year at build time and the year chips wouldn't match it.
+const winnipegYear = (iso: string) =>
+  new Intl.DateTimeFormat('en-CA', { year: 'numeric', timeZone: TZ }).format(new Date(iso));
+
 // Years present in the data, newest first. Every post renders to the DOM; the client
 // script filters visibility based on the URL's ?year= param or the chip buttons.
 // Astro.url.searchParams isn't reliable with output:'static' — the component runs once
 // at build time, so filtering has to happen client-side.
-const years = Array.from(
-  new Set(posts.map((p) => new Date(p.publishedAt).getFullYear())),
-).sort((a, b) => b - a);
+const years = Array.from(new Set(posts.map((p) => winnipegYear(p.publishedAt)))).sort(
+  (a, b) => Number(b) - Number(a),
+);
 
 const fmt = (iso: string) =>
   new Date(iso).toLocaleDateString('en-CA', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    timeZone: 'America/Winnipeg',
+    timeZone: TZ,
   });
 ---
 
@@ -34,7 +42,7 @@ const fmt = (iso: string) =>
       <button data-year="" class="year-chip rounded-full px-3 py-1 text-sm border bg-brand-700 text-white border-brand-700 cursor-pointer">All</button>
       {years.map((y) => (
         <button
-          data-year={String(y)}
+          data-year={y}
           class="year-chip rounded-full px-3 py-1 text-sm border bg-white text-ink border-neutral-300 hover:border-brand-700 cursor-pointer"
         >{y}</button>
       ))}
@@ -58,7 +66,7 @@ const fmt = (iso: string) =>
       {posts.map((p) => (
         <li
           class="news-card flex flex-col rounded-lg border border-neutral-200 bg-white overflow-hidden"
-          data-year={String(new Date(p.publishedAt).getFullYear())}
+          data-year={winnipegYear(p.publishedAt)}
           data-title={p.title.toLowerCase()}
           data-excerpt={(p.excerpt ?? '').toLowerCase()}
         >

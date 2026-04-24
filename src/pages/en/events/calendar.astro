@@ -4,25 +4,59 @@ import { getAllEvents } from '../../../sanity/queries';
 
 const events = await getAllEvents();
 
-// All-day events in both FullCalendar and iCalendar use an EXCLUSIVE end date: an event
-// that runs June 4-6 inclusive needs end=June 7, otherwise only the 4th and 5th show.
-// Editors set the inclusive last day in Studio (the natural meaning of "end date"); we
-// shift by a day here before passing to FullCalendar.
-const addDay = (iso: string) => {
-  const d = new Date(iso);
-  d.setUTCDate(d.getUTCDate() + 1);
-  return d.toISOString();
+const TZ = 'America/Winnipeg';
+
+// Pull the Winnipeg wall-clock parts out of a stored UTC timestamp. Without this,
+// an all-day event for June 6 (stored as 2026-06-06T05:00:00Z) would become June 5
+// when a browser east of Winnipeg extracts the local date, and a 7 p.m. Winnipeg
+// event would render at the viewer's local hour instead of the venue hour.
+const winnipegParts = (iso: string) => {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: TZ,
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(new Date(iso));
+  const lookup = (type: string) => parts.find((p) => p.type === type)?.value ?? '00';
+  return {
+    date: `${lookup('year')}-${lookup('month')}-${lookup('day')}`,
+    time: `${lookup('hour')}:${lookup('minute')}:${lookup('second')}`,
+  };
 };
 
-const calendarEvents = events.map((e) => ({
-  id: e.slug.current,
-  title: e.title,
-  start: e.startDate,
-  end: e.endDate ? (e.allDay ? addDay(e.endDate) : e.endDate) : undefined,
-  allDay: !!e.allDay,
-  url: `/en/events/${e.slug.current}`,
-  classNames: (e.categories ?? []).map((c) => `cat-${c}`),
-}));
+// All-day events in both FullCalendar and iCalendar use an EXCLUSIVE end date: an event
+// that runs June 4-6 inclusive needs end=June 7, otherwise only the 4th and 5th show.
+// Editors set the inclusive last day in Studio; we shift by one calendar day here using
+// UTC midnight arithmetic (DST-safe because we're only moving the day field).
+const nextDay = (ymd: string) => {
+  const [y, m, d] = ymd.split('-').map(Number);
+  const shifted = new Date(Date.UTC(y, m - 1, d + 1));
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${shifted.getUTCFullYear()}-${pad(shifted.getUTCMonth() + 1)}-${pad(shifted.getUTCDate())}`;
+};
+
+// Build the event list with times pinned to Winnipeg. For timed events we emit a naive
+// ISO (no Z) so FullCalendar treats the string as the event's "local" time and doesn't
+// reshift for the viewer's browser timezone.
+const calendarEvents = events.map((e) => {
+  const startParts = winnipegParts(e.startDate);
+  const endParts = e.endDate ? winnipegParts(e.endDate) : null;
+  const start = e.allDay ? startParts.date : `${startParts.date}T${startParts.time}`;
+  const end = !endParts
+    ? undefined
+    : e.allDay
+      ? nextDay(endParts.date)
+      : `${endParts.date}T${endParts.time}`;
+  return {
+    id: e.slug.current,
+    title: e.title,
+    start,
+    end,
+    allDay: !!e.allDay,
+    url: `/en/events/${e.slug.current}`,
+    classNames: (e.categories ?? []).map((c) => `cat-${c}`),
+  };
+});
 ---
 
 <BaseLayout
