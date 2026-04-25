@@ -14,18 +14,23 @@ const [allEvents, newsPosts, inducteeYears] = await Promise.all([
   getInducteeYears(),
 ]);
 
-const now = new Date();
+const TZ = 'America/Winnipeg';
+
 // Treat an event as upcoming if its end (or start) is today or later — matches the
-// events index page so the two stay consistent.
-const nextEvent =
-  allEvents.find((e) => new Date(e.endDate ?? e.startDate) >= now) ?? null;
+// events index page so the two stay consistent. All-day events compare by Winnipeg
+// calendar date so a today all-day event doesn't drop off the card at 1 a.m. local.
+const now = new Date();
+const winnipegDate = (iso: string) => new Date(iso).toLocaleDateString('en-CA', { timeZone: TZ });
+const todayWinnipeg = winnipegDate(now.toISOString());
+const nextEvent = allEvents.find((e) => {
+  const tail = e.endDate ?? e.startDate;
+  return e.allDay ? winnipegDate(tail) >= todayWinnipeg : new Date(tail) >= now;
+}) ?? null;
 
 const latestNews = newsPosts[0] ?? null;
 
 const spotlightYear = inducteeYears[0] ?? null;
 const spotlightInductees = spotlightYear ? await getInducteesByYear(spotlightYear) : [];
-
-const TZ = 'America/Winnipeg';
 
 const fmtEventDateTime = (iso: string, allDay: boolean | undefined) => {
   const d = new Date(iso);

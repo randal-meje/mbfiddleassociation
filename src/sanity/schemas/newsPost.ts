@@ -88,7 +88,9 @@ export const newsPostSchema = defineType({
     select: { title: 'title', date: 'publishedAt', media: 'coverImage' },
     prepare: ({ title, date, media }) => ({
       title,
-      subtitle: date ? new Date(date).toLocaleDateString('en-CA') : 'No date',
+      subtitle: date
+        ? new Date(date).toLocaleDateString('en-CA', { timeZone: 'America/Winnipeg' })
+        : 'No date',
       media,
     }),
   },

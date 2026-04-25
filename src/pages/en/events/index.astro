@@ -5,18 +5,23 @@ import { urlFor } from '../../../sanity/client';
 
 const events = await getAllEvents();
 
-const now = new Date();
+const TZ = 'America/Winnipeg';
+
 // Treat an event as upcoming if its end (or start, if no end) is today or later. That
 // way a day-long or multi-day event stays in "upcoming" until it's actually past.
+// All-day events are compared by Winnipeg calendar date, not timestamp — otherwise a
+// today all-day event (stored as 05:00 UTC midnight-Winnipeg) would flip to "past"
+// around 1 a.m. local time instead of at end-of-day.
+const now = new Date();
+const winnipegDate = (iso: string) => new Date(iso).toLocaleDateString('en-CA', { timeZone: TZ });
+const todayWinnipeg = winnipegDate(now.toISOString());
 const upcoming = events.filter((e) => {
   const tail = e.endDate ?? e.startDate;
-  return new Date(tail) >= now;
+  return e.allDay ? winnipegDate(tail) >= todayWinnipeg : new Date(tail) >= now;
 });
 const past = events.filter((e) => !upcoming.includes(e)).reverse();
 
 const categoriesPresent = Array.from(new Set(events.flatMap((e) => e.categories ?? [])));
-
-const TZ = 'America/Winnipeg';
 
 const fmtDateRange = (start: string, end: string | undefined, allDay: boolean | undefined) => {
   const s = new Date(start);
@@ -29,8 +34,7 @@ const fmtDateRange = (start: string, end: string | undefined, allDay: boolean | 
   if (!end) return `${sDate}${sTime ? ' · ' + sTime : ''}`;
   const e = new Date(end);
   // Compare by wall-clock day in Winnipeg, not the server's toDateString() default.
-  const dayKey = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: TZ });
-  const sameDay = dayKey(s) === dayKey(e);
+  const sameDay = winnipegDate(start) === winnipegDate(end);
   if (sameDay) {
     const eTime = allDay ? '' : e.toLocaleTimeString('en-CA', tOpts);
     return `${sDate}${sTime ? ' · ' + sTime : ''}${eTime ? '–' + eTime : ''}`;

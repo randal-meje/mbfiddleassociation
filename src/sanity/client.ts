@@ -1,6 +1,5 @@
 import { createClient } from '@sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url';
 
 // Astro exposes env vars prefixed with PUBLIC_ at build time via import.meta.env.
 // useCdn:false because we build statically — every build fetches fresh content, so
@@ -25,5 +24,5 @@ export const sanityClient = createClient({
 // image object's `crop` and `hotspot` fields (set by editors in Studio) and bakes them
 // into the CDN URL as `rect=…` and `fp-x/fp-y=…`, so editor-chosen cropping is actually
 // respected at render time.
-const urlBuilder = imageUrlBuilder(sanityClient);
+const urlBuilder = createImageUrlBuilder(sanityClient);
 export const urlFor = (source: SanityImageSource) => urlBuilder.image(source);

@@ -1,6 +1,11 @@
 ---
 // Single-locale site for launch. See SiteHeader.astro for the plan when FR returns.
-const year = new Date().getFullYear();
+// Winnipeg year — builds run on Netlify in UTC, so a rebuild after ~6pm CST on Dec 31
+// would otherwise flip the copyright year prematurely.
+const year = new Intl.DateTimeFormat('en-CA', {
+  year: 'numeric',
+  timeZone: 'America/Winnipeg',
+}).format(new Date());
 
 const columns = [
   {

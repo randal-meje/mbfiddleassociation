@@ -74,7 +74,7 @@ const jsonLd = {
   ogType="event"
   ogImage={event.coverImage?.asset?.url}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <article class="mx-auto max-w-3xl px-6 py-12 md:py-16">
     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
       <a href="/en/events" class="no-underline hover:text-brand-800">Events</a>

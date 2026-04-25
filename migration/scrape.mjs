@@ -11,7 +11,7 @@ const BASE = 'https://www.mbfiddleassociation.org';
 const SITEMAP_URL = `${BASE}/sitemap.xml`;
 const OUT = join(ROOT, 'output');
 const ASSETS_DIR = join(OUT, 'assets');
-const USER_AGENT = 'MFA-Migration-Scraper/1.0 (+mailto:randal@meje.com)';
+const USER_AGENT = 'MFA-Migration-Scraper/1.0';
 const REQUEST_DELAY_MS = 250;
 
 const log = (...a) => console.log('·', ...a);
@@ -450,7 +450,11 @@ async function main() {
   // Probe inductee years that aren't in the sitemap (COVID-era gap suspected).
   const sitemapPaths = new Set(urls.map((u) => new URL(u.loc).pathname));
   const probedYears = [];
-  for (let y = 2013; y <= new Date().getFullYear() + 1; y++) {
+  const currentWinnipegYear = Number(
+    new Intl.DateTimeFormat('en-CA', { year: 'numeric', timeZone: 'America/Winnipeg' })
+      .format(new Date()),
+  );
+  for (let y = 2013; y <= currentWinnipegYear + 1; y++) {
     const p = `/${y}-inductees.html`;
     if (!sitemapPaths.has(p)) {
       const full = `${BASE}${p}`;

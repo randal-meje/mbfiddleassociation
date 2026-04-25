@@ -134,7 +134,9 @@ export const eventSchema = defineType({
     prepare: ({ title, date, categories, location, media }) => ({
       title,
       subtitle: [
-        date ? new Date(date).toLocaleDateString('en-CA') : 'No date',
+        date
+          ? new Date(date).toLocaleDateString('en-CA', { timeZone: 'America/Winnipeg' })
+          : 'No date',
         Array.isArray(categories) ? categories.join(', ') : '',
         location,
       ].filter(Boolean).join(' · '),
