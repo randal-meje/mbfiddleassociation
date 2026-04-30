@@ -114,6 +114,7 @@ export interface SanityInductee {
   year: number;
   category: InducteeCategory;
   posthumous?: boolean;
+  hometown?: string;
   order?: number;
   photo?: SanityImage;
   bioPdf?: { asset?: { url?: string; originalFilename?: string } };
@@ -121,7 +122,7 @@ export interface SanityInductee {
 }
 
 const inducteeProjection = `{
-  _id, name, year, category, posthumous, order,
+  _id, name, year, category, posthumous, hometown, order,
   "photo": photo{ ..., asset->{ _id, _ref, url, metadata } },
   "bioPdf": bioPdf{ "asset": asset->{ url, originalFilename } },
   bioBody

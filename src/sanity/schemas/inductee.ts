@@ -41,6 +41,11 @@ export const inducteeSchema = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'hometown',
+      type: 'string',
+      description: 'City and province, e.g. "Dauphin, MB".',
+    }),
+    defineField({
       name: 'photo',
       type: 'image',
       description: 'Portrait photo, ideally 1200 × 1500 px or larger. Sanity handles resizing — upload the biggest version you have.',

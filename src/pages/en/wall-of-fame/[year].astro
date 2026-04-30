@@ -82,6 +82,9 @@ const groups = CATEGORY_ORDER
                     <span class="ml-1 text-ink/55 text-sm font-sans font-normal">(posthumous)</span>
                   )}
                 </h3>
+                {i.hometown && (
+                  <p class="mt-1 text-sm text-ink/70">{i.hometown}</p>
+                )}
                 {i.bioPdf?.asset?.url && (
                   <a
                     href={i.bioPdf.asset.url}
